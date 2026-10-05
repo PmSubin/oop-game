@@ -32,8 +32,12 @@ public abstract class Dish
     /// </summary>
     public abstract IReadOnlyDictionary<string, int> GetIngredients();
 
+    // Giá luôn hiện kiểu Việt Nam (45.000đ), không phụ thuộc cài đặt ngôn ngữ của máy.
     public override string ToString()
     {
-        return $"{Name} - {Price:N0}đ";
+        return $"{Name} - {Price.ToString("N0", VietnameseCulture)}đ";
     }
+
+    private static readonly System.Globalization.CultureInfo VietnameseCulture =
+        System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
 }
