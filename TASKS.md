@@ -7,7 +7,7 @@ Hướng dẫn chi tiết từng phần (đặc tả, các bước GitHub, promp
 | Phần | Người làm | Hướng dẫn | Issue | Độ khó |
 | --- | --- | --- | --- | --- |
 | 1. Thực đơn và món ăn | tanbui31251026551-byte | [phan-1-thuc-don.md](docs/phan-1-thuc-don.md) | #1 | Dễ |
-| 2. Khách hàng | (chưa nhận) | [phan-2-khach-hang.md](docs/phan-2-khach-hang.md) | #2 | Vừa |
+| 2. Khách hàng | toanhtan2021-cmyk | [phan-2-khach-hang.md](docs/phan-2-khach-hang.md) | #2 | Vừa |
 | 3. Bếp và kho nguyên liệu | (chưa nhận) | [phan-3-bep-va-kho.md](docs/phan-3-bep-va-kho.md) | #3 | Khó |
 | 4. Quán, ngày làm việc và giao diện | (chưa nhận) | [phan-4-quan-va-giao-dien.md](docs/phan-4-quan-va-giao-dien.md) | #4 | Khó nhất, làm sau cùng |
 
