@@ -1,0 +1,39 @@
+namespace OopGame.Core.Menu;
+
+/// <summary>
+/// Lớp cha trừu tượng cho mọi món ăn trong quán.
+/// Không tạo trực tiếp được, phải tạo qua lớp con (Pho, BanhMi, ComTam...).
+/// </summary>
+public abstract class Dish
+{
+    public string Name { get; }
+    public int Price { get; }
+    public int CookTimeSeconds { get; }
+
+    protected Dish(string name, int price, int cookTimeSeconds)
+    {
+        if (price <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(price), "Giá món phải lớn hơn 0.");
+        }
+        if (cookTimeSeconds <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(cookTimeSeconds), "Thời gian nấu phải lớn hơn 0.");
+        }
+
+        Name = name;
+        Price = price;
+        CookTimeSeconds = cookTimeSeconds;
+    }
+
+    /// <summary>
+    /// Nguyên liệu cần để nấu một phần: tên nguyên liệu và số lượng.
+    /// Mỗi món con tự khai báo công thức của mình.
+    /// </summary>
+    public abstract IReadOnlyDictionary<string, int> GetIngredients();
+
+    public override string ToString()
+    {
+        return $"{Name} - {Price:N0}đ";
+    }
+}
