@@ -6,23 +6,28 @@
 
 ## A. Bạn làm gì (đọc trước)
 
-Bạn làm **khách hàng** của quán:
+Bạn là người **tạo ra khách hàng**. Quán có đủ loại khách, mỗi người một tính:
+
+| Loại | Tính cách | Lúc được phục vụ | Lúc bỏ về |
+| --- | --- | --- | --- |
+| **Khách vãng lai** (`NormalCustomer`) | Dễ tính, chờ được 40 giây | "Ngon, cảm ơn quán nha!" | "Thôi đi quán khác vậy..." |
+| **Đại gia** (`VipCustomer`) | Tip rất đậm nhưng chỉ chờ 25 giây | "Ngon! Khỏi thối tiền thừa." | "Đại gia mà bắt chờ à? Không bao giờ quay lại!" |
+| **Reviewer khó tính** (`PickyCustomer`) | Chờ quá 10 giây là bực gấp đôi | Nhanh: "Nhanh đấy, cho 5 sao!", chậm: "Chậm quá... thôi 3 sao." | "Chờ lâu thế này, về viết review 1 sao!" |
+
+Việc của bạn:
 
 - **Lớp cha trừu tượng `Customer`:** mỗi khách có tên, món đã gọi và thanh **kiên nhẫn** giảm dần theo từng giây. Hết kiên nhẫn thì bỏ về.
-- **3 loại khách, cư xử khác nhau:**
-  - **Khách thường** (`NormalCustomer`): bình thường.
-  - **Khách VIP** (`VipCustomer`): tip nhiều nhưng ít kiên nhẫn.
-  - **Khách khó tính** (`PickyCustomer`): chờ quá 10 giây là mất kiên nhẫn gấp đôi, phục vụ chậm thì không tip.
-- **`CustomerFactory`:** tạo khách ngẫu nhiên. 60% khách thường, 20% VIP, 20% khó tính. Mỗi khách gọi ngẫu nhiên một món trong thực đơn.
+- **3 loại khách ở bảng trên:** mỗi loại tự tính tiền tip và tự nói câu thoại của mình.
+- **`CustomerFactory`:** "máy đẻ khách" ngẫu nhiên, với tên như "Anh Shipper Vội Vàng" hay "Em Sinh Viên Cuối Tháng". Tỉ lệ 60% vãng lai, 20% đại gia, 20% reviewer. Mỗi khách gọi ngẫu nhiên một món.
 
 **OOP bạn thể hiện được (đây là phần thầy hay hỏi nhất về đa hình):**
 
 - **Trừu tượng:** `Customer` là `abstract`, có phương thức `abstract CalculateTip()` mà lớp con bắt buộc tự viết.
 - **Kế thừa:** 3 loại khách kế thừa `Customer`.
 - **Đa hình:**
-  - Mỗi loại khách tính tip khác nhau (override `CalculateTip()`).
-  - Khách khó tính mất kiên nhẫn khác (override `ReducePatience()`).
-  - Quán chỉ cần gọi `customer.CalculateTip()`, không cần biết đó là loại khách nào.
+  - Mỗi loại khách tính tip khác nhau (override `CalculateTip()`) và nói câu khác nhau (override `GetThankYouMessage()`, `GetLeavingMessage()`).
+  - Reviewer khó tính mất kiên nhẫn khác (override `ReducePatience()`).
+  - Quán chỉ cần gọi `customer.GetThankYouMessage()`, tự khắc đại gia nói kiểu đại gia, reviewer nói kiểu reviewer. Đây là ví dụ đa hình rất dễ giải thích với thầy.
 - **Interface:** `Customer` cài đặt `IUpdatable`, được quán gọi `Update(1)` mỗi giây.
 - **Đóng gói:** `Patience` chỉ đọc từ bên ngoài, luôn nằm trong khoảng 0 đến `MaxPatience`.
 
@@ -154,11 +159,13 @@ Khi nhóm trưởng bấm **Merge** là xong. Issue #2 tự đóng, tên bạn n
 
 ==================== BẮT ĐẦU PROMPT ====================
 
-Bạn là lập trình viên C# đang hướng dẫn một sinh viên năm nhất. Hãy viết code cho **Phần 2: Khách hàng** của đồ án môn Lập trình hướng đối tượng, **đúng chính xác** theo đặc tả bên dưới.
+Bạn là một anh/chị khoá trên giỏi C#, vui tính, đang kèm một bạn sinh viên năm nhất làm đồ án môn Lập trình hướng đối tượng. Hãy viết code cho **Phần 2: Khách hàng**, **đúng chính xác** theo đặc tả bên dưới.
+
+**Giọng văn khi giải thích:** thân thiện, vui vẻ, dễ hiểu, xưng "mình" và gọi "bạn". Dùng ví dụ đời thường trong quán ăn (món, khách, bếp) để giải thích khái niệm OOP. Có thể đùa nhẹ theo phong cách của game. **Nhưng code và kiến thức kỹ thuật phải chính xác tuyệt đối:** đùa ở lời giải thích, không đùa trong code.
 
 ### D1. Bối cảnh dự án
 
-- Game **"Quán Ăn Bận Rộn"**, viết bằng C# .NET 9 và Windows Forms. Người chơi điều hành một quán ăn: khách vào gọi món, người chơi nấu rồi phục vụ để nhận tiền và tip. Khách chờ lâu thì bỏ về, quán mất uy tín. Hết nguyên liệu thì nhập thêm.
+- Game **"Quán Ăn Bận Rộn"**, viết bằng C# .NET 9 và Windows Forms. Người chơi điều hành một quán ăn sinh viên với thực đơn "bựa" (Phở Gõ Deadline, Bánh Mì Không Người Yêu, Trà Sữa Full Topping Cháy Ví...). Khách vào gọi món, người chơi nấu rồi phục vụ để nhận tiền và tip. Khách chờ lâu thì bỏ về, quán mất uy tín. Hết nguyên liệu thì nhập thêm.
 - Solution `OopGame.sln` gồm 3 project:
   - `src/OopGame.Core`: class library `net9.0`, chứa **toàn bộ logic game**, không có giao diện (không dùng `System.Windows.Forms`).
   - `src/OopGame.WinForms`: giao diện Windows Forms (`net9.0-windows`), tham chiếu `OopGame.Core`.
@@ -179,8 +186,9 @@ Bạn là lập trình viên C# đang hướng dẫn một sinh viên năm nhấ
 4. Code phải **dễ hiểu với sinh viên năm nhất** để trả lời vấn đáp. Áp dụng cho code bạn viết, không áp dụng cho file test có sẵn:
    - Dùng `for`, `foreach`, `if` rõ ràng.
    - **Không dùng LINQ** (`Where`, `Select`, `Any`, `All`, `FirstOrDefault`, `ToList`...), không dùng lambda, không dùng `var`, không dùng `record`.
-   - Phương thức và constructor viết thân bằng `{ }` đầy đủ.
-   - Chỉ được dùng `=>` cho **thuộc tính chỉ đọc một dòng**, ví dụ `public bool IsLeaving => Patience == 0;`, `public int Count => _dishes.Count;`, `public override string TypeName => "Khách VIP";`.
+   - Phương thức và constructor viết thân bằng `{ }` đầy đủ. Constructor rỗng chỉ gọi lớp cha được viết gọn một dòng: `: base(...) { }`.
+   - Được dùng cú pháp khởi tạo collection, ví dụ `new Dictionary<string, int> { { Ingredients.Beef, 1 } }`.
+   - Chỉ được dùng `=>` cho **thuộc tính chỉ đọc một dòng**, ví dụ `public bool IsLeaving => Patience == 0;`, `public int Count => _dishes.Count;`, `public override string Slogan => "Một ly trà, ba tiếng chém gió.";`.
    - Trong đặc tả, dòng nào chỉ ghi chữ ký (không có thân) thì bạn tự viết thân theo comment bên cạnh. Constructor của lớp con gọi lớp cha bằng `: base(...)`.
 5. Mỗi lớp và mỗi thành viên `public`, `protected` hoặc `override` có comment `/// <summary>` tiếng Việt, ngắn gọn. Trường private (kể cả `static`) đặt tên `_camelCase`.
 6. **Đóng gói:** dữ liệu bên trong (`List`, `Dictionary`, mảng) luôn là trường `private readonly`.
@@ -229,6 +237,12 @@ public abstract class Dish
     /// </summary>
     public abstract IReadOnlyDictionary<string, int> GetIngredients();
 
+    /// <summary>
+    /// Câu slogan vui của món, hiện trên giao diện khi chọn món.
+    /// Mỗi món con tự viết câu của mình.
+    /// </summary>
+    public abstract string Slogan { get; }
+
     // Giá luôn hiện kiểu Việt Nam (45.000đ), không phụ thuộc cài đặt ngôn ngữ của máy.
     public override string ToString()
     {
@@ -261,10 +275,13 @@ public static class Ingredients
     public const string Vegetables = "Rau";
     public const string Tea = "Trà";
     public const string Ice = "Đá";
+    public const string InstantNoodle = "Mì gói";
+    public const string Milk = "Sữa";
+    public const string Pearl = "Trân châu";
 
     public static IReadOnlyList<string> All { get; } = new[]
     {
-        RiceNoodle, Vermicelli, Beef, Pork, Rice, Bread, Egg, Vegetables, Tea, Ice
+        RiceNoodle, Vermicelli, Beef, Pork, Rice, Bread, Egg, Vegetables, Tea, Ice, InstantNoodle, Milk, Pearl
     };
 }
 ```
@@ -286,7 +303,7 @@ public interface IUpdatable
 
 ### D4. Đặc tả Phần 2
 
-**Thư mục:** `src/OopGame.Core/Customers/`. **Namespace:** `OopGame.Core.Customers`. Cần `using OopGame.Core.Menu;` để dùng `Dish`.
+**Thư mục:** `src/OopGame.Core/Customers/`. **Namespace:** `OopGame.Core.Customers`. **Cả 5 file** đều cần `using OopGame.Core.Menu;` ở đầu file để dùng `Dish`.
 
 #### Lớp `Customer` (file `Customer.cs`)
 
@@ -299,7 +316,7 @@ public abstract class Customer : IUpdatable
     public int Patience { get; private set; }   // kiên nhẫn còn lại, luôn trong khoảng 0..MaxPatience
     public int WaitedSeconds { get; private set; }   // đã chờ bao nhiêu giây
     public bool IsLeaving => Patience == 0;     // hết kiên nhẫn thì bỏ về
-    public abstract string TypeName { get; }    // tên loại khách để hiện lên màn hình
+    public abstract string TypeName { get; }    // tên loại khách để hiện lên màn hình: "Khách vãng lai", "Đại gia", "Reviewer khó tính"
 
     protected Customer(string name, Dish order, int maxPatience)
     // Gán các thuộc tính. Patience bắt đầu bằng maxPatience. WaitedSeconds bắt đầu bằng 0.
@@ -319,27 +336,40 @@ public abstract class Customer : IUpdatable
     public abstract int CalculateTip();
     // Tiền tip khi được phục vụ, dựa vào WaitedSeconds và Order.Price.
 
+    public abstract string GetThankYouMessage();
+    // Câu khách nói khi được phục vụ.
+
+    public abstract string GetLeavingMessage();
+    // Câu khách nói khi hết kiên nhẫn bỏ về.
+
     public override string ToString()
     // Định dạng: "{Name} ({TypeName}) gọi {Order.Name} - kiên nhẫn {Patience}/{MaxPatience}"
-    // Ví dụ: "Anh Minh (Khách VIP) gọi Phở bò - kiên nhẫn 20/25"
+    // Ví dụ: "Anh Shipper (Đại gia) gọi Phở Gõ Deadline - kiên nhẫn 20/25"
 }
 ```
 
 #### Ba loại khách
 
 - Mỗi lớp có constructor `public Xxx(string name, Dish order)`, tự truyền `MaxPatience` của mình vào `base(name, order, maxPatience)`.
-- Override `TypeName` và `CalculateTip()`.
+- Override `TypeName`, `CalculateTip()`, `GetThankYouMessage()`, `GetLeavingMessage()`.
 - Tiền tip tính bằng phép chia số nguyên: `Order.Price * phần_trăm / 100`.
+- Các câu thoại phải **đúng từng chữ, từng dấu câu** như bảng (kể cả dấu `...`, `!`, `?`).
 
 | Lớp | `TypeName` | `MaxPatience` | Kiên nhẫn giảm thế nào | `CalculateTip()` |
 | --- | --- | --- | --- | --- |
-| `NormalCustomer` | `"Khách thường"` | 40 | Không override, dùng mặc định (mỗi giây giảm 1) | `WaitedSeconds <= 20` thì 10% giá món, ngược lại 0 |
-| `VipCustomer` | `"Khách VIP"` | 25 | Không override, dùng mặc định | `WaitedSeconds <= 15` thì 30% giá món, ngược lại 10% |
-| `PickyCustomer` | `"Khách khó tính"` | 40 | **Override `ReducePatience`:** nếu `WaitedSeconds > 10` thì giảm `seconds * 2`, ngược lại giảm `seconds`. Dùng `SetPatience(...)` | `WaitedSeconds <= 10` thì 20% giá món, ngược lại 0 |
+| `NormalCustomer` | `"Khách vãng lai"` | 40 | Không override, dùng mặc định (mỗi giây giảm 1) | `WaitedSeconds <= 20` thì 10% giá món, ngược lại 0 |
+| `VipCustomer` | `"Đại gia"` | 25 | Không override, dùng mặc định | `WaitedSeconds <= 15` thì 30% giá món, ngược lại 10% |
+| `PickyCustomer` | `"Reviewer khó tính"` | 40 | **Override `ReducePatience`:** nếu `WaitedSeconds > 10` thì giảm `seconds * 2`, ngược lại giảm `seconds`. Dùng `SetPatience(...)` | `WaitedSeconds <= 10` thì 20% giá món, ngược lại 0 |
+
+| Lớp | `GetThankYouMessage()` | `GetLeavingMessage()` |
+| --- | --- | --- |
+| `NormalCustomer` | `"Ngon, cảm ơn quán nha!"` | `"Thôi đi quán khác vậy..."` |
+| `VipCustomer` | `"Ngon! Khỏi thối tiền thừa."` | `"Đại gia mà bắt chờ à? Không bao giờ quay lại!"` |
+| `PickyCustomer` | `WaitedSeconds <= 10` thì `"Nhanh đấy, cho 5 sao!"`, ngược lại `"Chậm quá... thôi 3 sao."` | `"Chờ lâu thế này, về viết review 1 sao!"` |
 
 Ví dụ kiểm tra tay:
 
-- Khách khó tính sau 10 lần `Update(1)` có `Patience` = 30.
+- Reviewer khó tính sau 10 lần `Update(1)` có `Patience` = 30.
 - Sau thêm 5 lần nữa thì `Patience` = 20 (vì mỗi giây sau giây thứ 10 giảm 2).
 
 #### Lớp `CustomerFactory` (file `CustomerFactory.cs`)
@@ -350,8 +380,9 @@ public class CustomerFactory
     private readonly Random _random;
     private static readonly string[] _names = new string[]
     {
-        "Anh Minh", "Chị Lan", "Cô Hoa", "Bác Tư", "Em Na", "Anh Hùng", "Chị Mai", "Ông Sáu"
-    };   // có thể thêm tên, tối thiểu 8 tên
+        "Anh Shipper Vội Vàng", "Chị Review Một Sao", "Em Sinh Viên Cuối Tháng", "Anh Code Dạo",
+        "Chị Bán Hàng Online", "Bác Bảo Vệ Trường", "Anh Gym Ăn Kiêng", "Cô Hàng Xóm Hóng Chuyện"
+    };   // được thêm tên vui khác, tối thiểu 8 tên, không dùng tên người thật
 
     public CustomerFactory(Random random)
     // Lưu random vào _random. Mọi lựa chọn ngẫu nhiên đều dùng _random, không tự tạo new Random().
@@ -385,6 +416,8 @@ public class Part2CustomerTests
     private sealed class FakeDish : Dish
     {
         public FakeDish() : base("Món thử", 100000, 3) { }
+
+        public override string Slogan => "Slogan thử";
 
         public override IReadOnlyDictionary<string, int> GetIngredients()
         {
@@ -422,9 +455,9 @@ public class Part2CustomerTests
     [Fact]
     public void TypeNames_AreCorrect()
     {
-        Assert.Equal("Khách thường", new NormalCustomer("A", new FakeDish()).TypeName);
-        Assert.Equal("Khách VIP", new VipCustomer("A", new FakeDish()).TypeName);
-        Assert.Equal("Khách khó tính", new PickyCustomer("A", new FakeDish()).TypeName);
+        Assert.Equal("Khách vãng lai", new NormalCustomer("A", new FakeDish()).TypeName);
+        Assert.Equal("Đại gia", new VipCustomer("A", new FakeDish()).TypeName);
+        Assert.Equal("Reviewer khó tính", new PickyCustomer("A", new FakeDish()).TypeName);
     }
 
     [Fact]
@@ -500,9 +533,34 @@ public class Part2CustomerTests
     [Fact]
     public void ToString_ShowsNameTypeOrderAndPatience()
     {
-        Customer customer = new VipCustomer("Anh Minh", new FakeDish());
+        Customer customer = new VipCustomer("Anh Shipper", new FakeDish());
         Wait(customer, 5);
-        Assert.Equal("Anh Minh (Khách VIP) gọi Món thử - kiên nhẫn 20/25", customer.ToString());
+        Assert.Equal("Anh Shipper (Đại gia) gọi Món thử - kiên nhẫn 20/25", customer.ToString());
+    }
+
+    [Fact]
+    public void EachType_SaysItsOwnLines()
+    {
+        Customer normal = new NormalCustomer("A", new FakeDish());
+        Assert.Equal("Ngon, cảm ơn quán nha!", normal.GetThankYouMessage());
+        Assert.Equal("Thôi đi quán khác vậy...", normal.GetLeavingMessage());
+
+        Customer vip = new VipCustomer("A", new FakeDish());
+        Assert.Equal("Ngon! Khỏi thối tiền thừa.", vip.GetThankYouMessage());
+        Assert.Equal("Đại gia mà bắt chờ à? Không bao giờ quay lại!", vip.GetLeavingMessage());
+
+        Customer picky = new PickyCustomer("A", new FakeDish());
+        Assert.Equal("Chờ lâu thế này, về viết review 1 sao!", picky.GetLeavingMessage());
+    }
+
+    [Fact]
+    public void PickyCustomer_ThankYouDependsOnWaitTime()
+    {
+        Customer picky = new PickyCustomer("A", new FakeDish());
+        Wait(picky, 10);
+        Assert.Equal("Nhanh đấy, cho 5 sao!", picky.GetThankYouMessage());
+        picky.Update(1);
+        Assert.Equal("Chậm quá... thôi 3 sao.", picky.GetThankYouMessage());
     }
 
     [Fact]
@@ -552,8 +610,9 @@ Trả lời theo đúng thứ tự sau:
 
 1. Danh sách các file sẽ tạo, ghi đường dẫn đầy đủ.
 2. Nội dung **đầy đủ** của từng file, mỗi file một khối code riêng, ghi đường dẫn ngay phía trên khối. Không viết tắt bằng "...", không bỏ sót phần nào.
-3. Giải thích ngắn từng lớp: làm gì, thể hiện tính chất OOP nào (đóng gói, kế thừa, đa hình, trừu tượng), ở dòng nào.
+3. Giải thích từng lớp bằng giọng vui, dễ hiểu: lớp đó làm gì trong quán, thể hiện tính chất OOP nào (đóng gói, kế thừa, đa hình, trừu tượng), ở đoạn code nào (trích đoạn code ra). Dùng ví dụ món ăn, khách, bếp cho dễ nhớ.
 4. Tự rà lại: đối chiếu từng bài kiểm tra ở mục D5 với code, nói rõ vì sao code qua bài đó.
-5. Năm câu hỏi vấn đáp thầy có thể hỏi về phần này, kèm câu trả lời ngắn.
+5. Năm câu hỏi vấn đáp thầy có thể hỏi về phần này, kèm câu trả lời ngắn để bạn sinh viên tự trả lời được.
+6. Cuối cùng, nhắc bạn ấy một câu: dù có AI viết hộ thì vẫn phải hiểu rõ phần chung (lớp `Dish`, `Ingredients`, `IUpdatable` và cách các phần ghép với nhau), vì thầy hỏi là phải trả lời được.
 
 ==================== HẾT PROMPT ====================

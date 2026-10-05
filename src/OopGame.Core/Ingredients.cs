@@ -16,9 +16,12 @@ public static class Ingredients
     public const string Vegetables = "Rau";
     public const string Tea = "Trà";
     public const string Ice = "Đá";
+    public const string InstantNoodle = "Mì gói";
+    public const string Milk = "Sữa";
+    public const string Pearl = "Trân châu";
 
     public static IReadOnlyList<string> All { get; } = new[]
     {
-        RiceNoodle, Vermicelli, Beef, Pork, Rice, Bread, Egg, Vegetables, Tea, Ice
+        RiceNoodle, Vermicelli, Beef, Pork, Rice, Bread, Egg, Vegetables, Tea, Ice, InstantNoodle, Milk, Pearl
     };
 }

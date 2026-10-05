@@ -11,6 +11,8 @@ public class SharedFilesTests
     {
         public FakeDish(int price, int cookTime) : base("Món thử", price, cookTime) { }
 
+        public override string Slogan => "Slogan thử";
+
         public override IReadOnlyDictionary<string, int> GetIngredients()
         {
             return new Dictionary<string, int> { [Ingredients.Tea] = 1 };
@@ -31,9 +33,9 @@ public class SharedFilesTests
     }
 
     [Fact]
-    public void Ingredients_All_HasTenDistinctNames()
+    public void Ingredients_All_HasThirteenDistinctNames()
     {
-        Assert.Equal(10, Ingredients.All.Count);
-        Assert.Equal(10, Ingredients.All.Distinct().Count());
+        Assert.Equal(13, Ingredients.All.Count);
+        Assert.Equal(13, Ingredients.All.Distinct().Count());
     }
 }

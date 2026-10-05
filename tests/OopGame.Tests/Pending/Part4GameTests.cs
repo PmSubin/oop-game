@@ -25,7 +25,7 @@ public class Part4GameTests
         Assert.False(restaurant.IsOpen);
         Assert.False(restaurant.IsGameOver);
         Assert.Equal("08:00", restaurant.ClockText);
-        Assert.Equal(5, restaurant.Menu.Count);
+        Assert.Equal(7, restaurant.Menu.Count);
         Assert.Equal(5, restaurant.Inventory.GetAmount(Ingredients.Beef));
         Assert.Empty(restaurant.WaitingCustomers);
         Assert.Null(restaurant.CurrentSummary);

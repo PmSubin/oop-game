@@ -6,7 +6,10 @@
 
 ## A. Bạn làm gì (đọc trước)
 
-Bạn **ghép 3 phần kia thành game chơi được**:
+Bạn là **chủ quán**. Món của Phần 1, khách của Phần 2, bếp của Phần 3 đều về tay bạn, việc của bạn là **ghép tất cả thành game chơi được**.
+Đồng hồ chạy, khách đại gia đang mất kiên nhẫn, reviewer khó tính đang lăm le viết review 1 sao...
+
+Bạn làm:
 
 - **`Restaurant` (quán):**
   - Giữ tiền, uy tín, ngày, đồng hồ, thực đơn, kho, bếp và danh sách khách đang chờ.
@@ -160,11 +163,13 @@ Khi nhóm trưởng bấm **Merge** là xong. Issue #4 tự đóng, tên bạn n
 
 ==================== BẮT ĐẦU PROMPT ====================
 
-Bạn là lập trình viên C# đang hướng dẫn một sinh viên năm nhất. Hãy viết code cho **Phần 4: Quán, ngày làm việc và giao diện** của đồ án môn Lập trình hướng đối tượng, **đúng chính xác** theo đặc tả bên dưới.
+Bạn là một anh/chị khoá trên giỏi C#, vui tính, đang kèm một bạn sinh viên năm nhất làm đồ án môn Lập trình hướng đối tượng. Hãy viết code cho **Phần 4: Quán, ngày làm việc và giao diện**, **đúng chính xác** theo đặc tả bên dưới.
+
+**Giọng văn khi giải thích:** thân thiện, vui vẻ, dễ hiểu, xưng "mình" và gọi "bạn". Dùng ví dụ đời thường trong quán ăn (món, khách, bếp) để giải thích khái niệm OOP. Có thể đùa nhẹ theo phong cách của game. **Nhưng code và kiến thức kỹ thuật phải chính xác tuyệt đối:** đùa ở lời giải thích, không đùa trong code.
 
 ### D1. Bối cảnh dự án
 
-- Game **"Quán Ăn Bận Rộn"**, viết bằng C# .NET 9 và Windows Forms. Người chơi điều hành một quán ăn: khách vào gọi món, người chơi nấu rồi phục vụ để nhận tiền và tip. Khách chờ lâu thì bỏ về, quán mất uy tín. Hết nguyên liệu thì nhập thêm.
+- Game **"Quán Ăn Bận Rộn"**, viết bằng C# .NET 9 và Windows Forms. Người chơi điều hành một quán ăn sinh viên với thực đơn "bựa" (Phở Gõ Deadline, Bánh Mì Không Người Yêu, Trà Sữa Full Topping Cháy Ví...). Khách vào gọi món, người chơi nấu rồi phục vụ để nhận tiền và tip. Khách chờ lâu thì bỏ về, quán mất uy tín. Hết nguyên liệu thì nhập thêm.
 - Solution `OopGame.sln` gồm 3 project:
   - `src/OopGame.Core`: class library `net9.0`, chứa **toàn bộ logic game**, không có giao diện (không dùng `System.Windows.Forms`).
   - `src/OopGame.WinForms`: giao diện Windows Forms (`net9.0-windows`), tham chiếu `OopGame.Core`.
@@ -185,8 +190,9 @@ Bạn là lập trình viên C# đang hướng dẫn một sinh viên năm nhấ
 4. Code phải **dễ hiểu với sinh viên năm nhất** để trả lời vấn đáp. Áp dụng cho code bạn viết, không áp dụng cho file test có sẵn:
    - Dùng `for`, `foreach`, `if` rõ ràng.
    - **Không dùng LINQ** (`Where`, `Select`, `Any`, `All`, `FirstOrDefault`, `ToList`...), không dùng lambda, không dùng `var`, không dùng `record`.
-   - Phương thức và constructor viết thân bằng `{ }` đầy đủ.
-   - Chỉ được dùng `=>` cho **thuộc tính chỉ đọc một dòng**, ví dụ `public bool IsLeaving => Patience == 0;`, `public int Count => _dishes.Count;`, `public override string TypeName => "Khách VIP";`.
+   - Phương thức và constructor viết thân bằng `{ }` đầy đủ. Constructor rỗng chỉ gọi lớp cha được viết gọn một dòng: `: base(...) { }`.
+   - Được dùng cú pháp khởi tạo collection, ví dụ `new Dictionary<string, int> { { Ingredients.Beef, 1 } }`.
+   - Chỉ được dùng `=>` cho **thuộc tính chỉ đọc một dòng**, ví dụ `public bool IsLeaving => Patience == 0;`, `public int Count => _dishes.Count;`, `public override string Slogan => "Một ly trà, ba tiếng chém gió.";`.
    - Trong đặc tả, dòng nào chỉ ghi chữ ký (không có thân) thì bạn tự viết thân theo comment bên cạnh. Constructor của lớp con gọi lớp cha bằng `: base(...)`.
 5. Mỗi lớp và mỗi thành viên `public`, `protected` hoặc `override` có comment `/// <summary>` tiếng Việt, ngắn gọn. Trường private (kể cả `static`) đặt tên `_camelCase`.
 6. **Đóng gói:** dữ liệu bên trong (`List`, `Dictionary`, mảng) luôn là trường `private readonly`.
@@ -235,6 +241,12 @@ public abstract class Dish
     /// </summary>
     public abstract IReadOnlyDictionary<string, int> GetIngredients();
 
+    /// <summary>
+    /// Câu slogan vui của món, hiện trên giao diện khi chọn món.
+    /// Mỗi món con tự viết câu của mình.
+    /// </summary>
+    public abstract string Slogan { get; }
+
     // Giá luôn hiện kiểu Việt Nam (45.000đ), không phụ thuộc cài đặt ngôn ngữ của máy.
     public override string ToString()
     {
@@ -267,10 +279,13 @@ public static class Ingredients
     public const string Vegetables = "Rau";
     public const string Tea = "Trà";
     public const string Ice = "Đá";
+    public const string InstantNoodle = "Mì gói";
+    public const string Milk = "Sữa";
+    public const string Pearl = "Trân châu";
 
     public static IReadOnlyList<string> All { get; } = new[]
     {
-        RiceNoodle, Vermicelli, Beef, Pork, Rice, Bread, Egg, Vegetables, Tea, Ice
+        RiceNoodle, Vermicelli, Beef, Pork, Rice, Bread, Egg, Vegetables, Tea, Ice, InstantNoodle, Milk, Pearl
     };
 }
 ```
@@ -298,12 +313,13 @@ public interface IUpdatable
 
 ```csharp
 // namespace OopGame.Core.Menu
-public abstract class MainDish : Dish { }      // ToString(): "[Món chính] Phở bò - 45.000đ"
-public abstract class Drink : Dish { }         // ToString(): "[Đồ uống] Trà đá - 5.000đ"
-// Các món: Pho, BunBo, ComTam, BanhMi (MainDish) và TraDa (Drink), constructor không tham số.
+public abstract class MainDish : Dish { }      // ToString(): "[Món chính] Phở Gõ Deadline - 45.000đ"
+public abstract class Drink : Dish { }         // ToString(): "[Đồ uống] Trà Đá Chém Gió - 5.000đ"
+// 7 món: Pho, BunBo, ComTam, BanhMi, MiTom (MainDish) và TraDa, TraSua (Drink), constructor không tham số.
+// Dish còn có: public abstract string Slogan { get; }   ví dụ "Ăn xong chạy deadline xuyên đêm."
 public class MenuBook
 {
-    public MenuBook();                           // có sẵn 5 món
+    public MenuBook();                           // có sẵn 7 món
     public int Count { get; }
     public IReadOnlyList<Dish> GetAll();
     public Dish GetRandom(Random random);
@@ -319,10 +335,12 @@ public abstract class Customer : IUpdatable
     public int Patience { get; }
     public int WaitedSeconds { get; }
     public bool IsLeaving { get; }               // true khi Patience == 0
-    public abstract string TypeName { get; }     // "Khách thường" / "Khách VIP" / "Khách khó tính"
+    public abstract string TypeName { get; }     // "Khách vãng lai" / "Đại gia" / "Reviewer khó tính"
     public void Update(int elapsedSeconds);
     public abstract int CalculateTip();
-    public override string ToString();           // "Anh Minh (Khách VIP) gọi Phở bò - kiên nhẫn 20/25"
+    public abstract string GetThankYouMessage();  // câu nói khi được phục vụ
+    public abstract string GetLeavingMessage();   // câu nói khi bỏ về
+    public override string ToString();           // "Anh Shipper (Đại gia) gọi Phở Gõ Deadline - kiên nhẫn 20/25"
 }
 public class CustomerFactory
 {
@@ -350,7 +368,7 @@ public class CookingOrder
     public Dish Dish { get; }
     public int RemainingSeconds { get; }
     public bool IsDone { get; }
-    public override string ToString();                 // "Phở bò - còn 3 giây"
+    public override string ToString();                 // "Phở Gõ Deadline - còn 3 giây"
 }
 public class Kitchen : IUpdatable
 {
@@ -443,18 +461,18 @@ public class Restaurant
     // 1. Nếu !IsOpen thì trả về List rỗng, không làm gì khác.
     // 2. MinutesOfDay += MinutesPerTick.
     // 3. int readyBefore = Kitchen.ReadyDishes.Count; Kitchen.Update(1);
-    //    với mỗi món ở vị trí readyBefore trở về sau trong Kitchen.ReadyDishes, thêm log "Đã nấu xong {tên món}".
+    //    với mỗi món ở vị trí readyBefore trở về sau trong Kitchen.ReadyDishes, thêm log "Ting! {tên món} ra lò."
     // 4. Duyệt một BẢN SAO của danh sách khách (new List<Customer>(_waitingCustomers)), với mỗi khách:
     //    gọi Update(1); nếu IsLeaving thì xoá khỏi _waitingCustomers,
     //    Reputation = Math.Max(0, Reputation - ReputationLostPerLeave),
     //    if (CurrentSummary != null) CurrentSummary.RecordLeft();   (quán đang mở thì CurrentSummary luôn khác null)
-    //    thêm log "{Name} chờ lâu quá nên bỏ về (-10 uy tín)".
+    //    thêm log "{Name} bỏ về: \"{GetLeavingMessage()}\" (-10 uy tín)".
     // 5. Nếu _waitingCustomers.Count < MaxWaitingCustomers VÀ _random.Next(100) < CustomerChancePercent:
     //    tạo khách bằng _customerFactory.CreateRandom(Menu.GetAll()), thêm vào _waitingCustomers,
-    //    thêm log "{Name} ({TypeName}) vào quán, gọi {Order.Name}".
-    // 6. Nếu IsGameOver: IsOpen = false; xoá hết khách đang chờ; thêm log "Uy tín về 0. Thua cuộc!".
+    //    thêm log "{Name} ({TypeName}) bước vào, gọi {Order.Name}".
+    // 6. Nếu IsGameOver: IsOpen = false; xoá hết khách đang chờ; thêm log "Uy tín về 0. Quán dính phốt, phải đóng cửa!".
     //    Ngược lại nếu MinutesOfDay >= CloseHour * 60: IsOpen = false; xoá hết khách đang chờ
-    //    (không trừ uy tín); thêm log "Đã 20:00, quán đóng cửa.".
+    //    (không trừ uy tín); thêm log "20:00 rồi, đóng cửa đi ngủ thôi!".
     // 7. Trả về danh sách log.
 
     public bool StartCooking(Dish dish)
@@ -538,6 +556,233 @@ public partial class MainForm : Form
 }
 ```
 
+Nội dung hiện tại của `src/OopGame.WinForms/MainForm.Designer.cs` (khi sửa, trả về **toàn bộ** file sau khi sửa):
+
+```csharp
+namespace OopGame.WinForms;
+
+partial class MainForm
+{
+    private System.ComponentModel.IContainer components = null;
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && (components != null))
+        {
+            components.Dispose();
+        }
+        base.Dispose(disposing);
+    }
+
+    #region Windows Form Designer generated code
+
+    private void InitializeComponent()
+    {
+        lblMoney = new Label();
+        lblReputation = new Label();
+        lblDay = new Label();
+        lblClock = new Label();
+        lblCustomersTitle = new Label();
+        lstCustomers = new ListBox();
+        lblMenuTitle = new Label();
+        lstMenu = new ListBox();
+        lblReadyTitle = new Label();
+        lstReady = new ListBox();
+        lstLog = new ListBox();
+        btnOpen = new Button();
+        btnCook = new Button();
+        btnServe = new Button();
+        btnBuy = new Button();
+        SuspendLayout();
+        //
+        // lblMoney
+        //
+        lblMoney.AutoSize = true;
+        lblMoney.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+        lblMoney.Location = new Point(20, 15);
+        lblMoney.Name = "lblMoney";
+        lblMoney.Size = new Size(90, 25);
+        lblMoney.TabIndex = 0;
+        lblMoney.Text = "Tiền: 0đ";
+        //
+        // lblReputation
+        //
+        lblReputation.AutoSize = true;
+        lblReputation.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+        lblReputation.Location = new Point(240, 15);
+        lblReputation.Name = "lblReputation";
+        lblReputation.Size = new Size(120, 25);
+        lblReputation.TabIndex = 1;
+        lblReputation.Text = "Uy tín: 100";
+        //
+        // lblDay
+        //
+        lblDay.AutoSize = true;
+        lblDay.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+        lblDay.Location = new Point(460, 15);
+        lblDay.Name = "lblDay";
+        lblDay.Size = new Size(70, 25);
+        lblDay.TabIndex = 2;
+        lblDay.Text = "Ngày 1";
+        //
+        // lblClock
+        //
+        lblClock.AutoSize = true;
+        lblClock.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+        lblClock.Location = new Point(660, 15);
+        lblClock.Name = "lblClock";
+        lblClock.Size = new Size(60, 25);
+        lblClock.TabIndex = 3;
+        lblClock.Text = "08:00";
+        //
+        // lblCustomersTitle
+        //
+        lblCustomersTitle.AutoSize = true;
+        lblCustomersTitle.Location = new Point(20, 52);
+        lblCustomersTitle.Name = "lblCustomersTitle";
+        lblCustomersTitle.Size = new Size(110, 20);
+        lblCustomersTitle.TabIndex = 4;
+        lblCustomersTitle.Text = "Khách đang chờ";
+        //
+        // lstCustomers
+        //
+        lstCustomers.FormattingEnabled = true;
+        lstCustomers.Location = new Point(20, 75);
+        lstCustomers.Name = "lstCustomers";
+        lstCustomers.Size = new Size(270, 224);
+        lstCustomers.TabIndex = 5;
+        //
+        // lblMenuTitle
+        //
+        lblMenuTitle.AutoSize = true;
+        lblMenuTitle.Location = new Point(305, 52);
+        lblMenuTitle.Name = "lblMenuTitle";
+        lblMenuTitle.Size = new Size(70, 20);
+        lblMenuTitle.TabIndex = 6;
+        lblMenuTitle.Text = "Thực đơn";
+        //
+        // lstMenu
+        //
+        lstMenu.FormattingEnabled = true;
+        lstMenu.Location = new Point(305, 75);
+        lstMenu.Name = "lstMenu";
+        lstMenu.Size = new Size(270, 224);
+        lstMenu.TabIndex = 7;
+        //
+        // lblReadyTitle
+        //
+        lblReadyTitle.AutoSize = true;
+        lblReadyTitle.Location = new Point(590, 52);
+        lblReadyTitle.Name = "lblReadyTitle";
+        lblReadyTitle.Size = new Size(120, 20);
+        lblReadyTitle.TabIndex = 8;
+        lblReadyTitle.Text = "Món đã nấu xong";
+        //
+        // lstReady
+        //
+        lstReady.FormattingEnabled = true;
+        lstReady.Location = new Point(590, 75);
+        lstReady.Name = "lstReady";
+        lstReady.Size = new Size(270, 224);
+        lstReady.TabIndex = 9;
+        //
+        // lstLog
+        //
+        lstLog.FormattingEnabled = true;
+        lstLog.Location = new Point(20, 315);
+        lstLog.Name = "lstLog";
+        lstLog.Size = new Size(840, 144);
+        lstLog.TabIndex = 10;
+        //
+        // btnOpen
+        //
+        btnOpen.Location = new Point(20, 475);
+        btnOpen.Name = "btnOpen";
+        btnOpen.Size = new Size(195, 50);
+        btnOpen.TabIndex = 11;
+        btnOpen.Text = "Mở cửa";
+        btnOpen.UseVisualStyleBackColor = true;
+        btnOpen.Click += btnOpen_Click;
+        //
+        // btnCook
+        //
+        btnCook.Location = new Point(235, 475);
+        btnCook.Name = "btnCook";
+        btnCook.Size = new Size(195, 50);
+        btnCook.TabIndex = 12;
+        btnCook.Text = "Nấu món";
+        btnCook.UseVisualStyleBackColor = true;
+        btnCook.Click += btnCook_Click;
+        //
+        // btnServe
+        //
+        btnServe.Location = new Point(450, 475);
+        btnServe.Name = "btnServe";
+        btnServe.Size = new Size(195, 50);
+        btnServe.TabIndex = 13;
+        btnServe.Text = "Phục vụ";
+        btnServe.UseVisualStyleBackColor = true;
+        btnServe.Click += btnServe_Click;
+        //
+        // btnBuy
+        //
+        btnBuy.Location = new Point(665, 475);
+        btnBuy.Name = "btnBuy";
+        btnBuy.Size = new Size(195, 50);
+        btnBuy.TabIndex = 14;
+        btnBuy.Text = "Nhập hàng";
+        btnBuy.UseVisualStyleBackColor = true;
+        btnBuy.Click += btnBuy_Click;
+        //
+        // MainForm
+        //
+        AutoScaleDimensions = new SizeF(8F, 20F);
+        AutoScaleMode = AutoScaleMode.Font;
+        ClientSize = new Size(880, 545);
+        Controls.Add(lblMoney);
+        Controls.Add(lblReputation);
+        Controls.Add(lblDay);
+        Controls.Add(lblClock);
+        Controls.Add(lblCustomersTitle);
+        Controls.Add(lstCustomers);
+        Controls.Add(lblMenuTitle);
+        Controls.Add(lstMenu);
+        Controls.Add(lblReadyTitle);
+        Controls.Add(lstReady);
+        Controls.Add(lstLog);
+        Controls.Add(btnOpen);
+        Controls.Add(btnCook);
+        Controls.Add(btnServe);
+        Controls.Add(btnBuy);
+        FormBorderStyle = FormBorderStyle.FixedSingle;
+        MaximizeBox = false;
+        Name = "MainForm";
+        StartPosition = FormStartPosition.CenterScreen;
+        Text = "Quán Ăn Bận Rộn";
+        ResumeLayout(false);
+        PerformLayout();
+    }
+
+    #endregion
+
+    private Label lblMoney;
+    private Label lblReputation;
+    private Label lblDay;
+    private Label lblClock;
+    private Label lblCustomersTitle;
+    private ListBox lstCustomers;
+    private Label lblMenuTitle;
+    private ListBox lstMenu;
+    private Label lblReadyTitle;
+    private ListBox lstReady;
+    private ListBox lstLog;
+    private Button btnOpen;
+    private Button btnCook;
+    private Button btnServe;
+    private Button btnBuy;
+}
+```
+
 Quy định chung cho `MainForm` và `BuyForm`:
 
 - Đầu file thêm `using OopGame.Core.Game;`, `using OopGame.Core.Menu;`, `using OopGame.Core.Customers;`, `using OopGame.Core.Cooking;` (dùng cái nào thì thêm cái đó).
@@ -554,7 +799,8 @@ Yêu cầu cho `MainForm`:
 2. Constructor (sau `InitializeComponent()`):
    - `_timer.Interval = 1000; _timer.Tick += OnTimerTick;`
    - Đổ từng món trong `_restaurant.Menu.GetAll()` vào `lstMenu.Items`.
-   - Gọi `RefreshView()`, rồi ghi log chào mừng.
+   - Gọi `RefreshView()`, rồi ghi log `"Chào mừng đến Quán Ăn Bận Rộn! Bấm Mở cửa để bắt đầu."`.
+   - Trong Designer gắn `lstMenu.SelectedIndexChanged += lstMenu_SelectedIndexChanged;`. Khi chọn một món thì log `"{Name}: {Slogan}"`.
 3. `RefreshView()`:
    - `lblMoney.Text = "Tiền: " + FormatMoney(_restaurant.Money)`; `lblReputation.Text = "Uy tín: " + Reputation`; `lblDay.Text = "Ngày " + Day`; `lblClock.Text = ClockText`.
    - Vẽ lại `lstCustomers` từ `WaitingCustomers`. Giữ nguyên khách đang được chọn nếu khách đó vẫn còn trong danh sách.
@@ -570,7 +816,7 @@ Yêu cầu cho `MainForm`:
 6. `btnServe_Click`:
    - Lấy khách đang chọn trong `lstCustomers`. Chưa chọn thì log `"Hãy chọn một khách đang chờ."`.
    - Lưu `int moneyBefore = _restaurant.Money;` rồi gọi `Serve`.
-   - Thành công thì log `"Đã phục vụ {Name}, nhận " + FormatMoney(_restaurant.Money - moneyBefore)`. **Không** tự gọi `CalculateTip()` trong giao diện.
+   - Thành công thì log `"{Name}: \"{GetThankYouMessage()}\" (+" + FormatMoney(_restaurant.Money - moneyBefore) + ")"`. **Không** tự gọi `CalculateTip()` trong giao diện.
    - Thất bại thì log `"Chưa phục vụ được {Name}: món {Order.Name} chưa nấu xong."`.
 7. `btnBuy_Click`:
    - `using (BuyForm form = new BuyForm(_restaurant)) { form.ShowDialog(this); }` rồi `RefreshView()`.
@@ -633,7 +879,7 @@ public class Part4GameTests
         Assert.False(restaurant.IsOpen);
         Assert.False(restaurant.IsGameOver);
         Assert.Equal("08:00", restaurant.ClockText);
-        Assert.Equal(5, restaurant.Menu.Count);
+        Assert.Equal(7, restaurant.Menu.Count);
         Assert.Equal(5, restaurant.Inventory.GetAmount(Ingredients.Beef));
         Assert.Empty(restaurant.WaitingCustomers);
         Assert.Null(restaurant.CurrentSummary);
@@ -781,8 +1027,9 @@ Trả lời theo đúng thứ tự sau:
 
 1. Danh sách các file sẽ tạo, ghi đường dẫn đầy đủ.
 2. Nội dung **đầy đủ** của từng file, mỗi file một khối code riêng, ghi đường dẫn ngay phía trên khối. Không viết tắt bằng "...", không bỏ sót phần nào.
-3. Giải thích ngắn từng lớp: làm gì, thể hiện tính chất OOP nào (đóng gói, kế thừa, đa hình, trừu tượng), ở dòng nào.
+3. Giải thích từng lớp bằng giọng vui, dễ hiểu: lớp đó làm gì trong quán, thể hiện tính chất OOP nào (đóng gói, kế thừa, đa hình, trừu tượng), ở đoạn code nào (trích đoạn code ra). Dùng ví dụ món ăn, khách, bếp cho dễ nhớ.
 4. Tự rà lại: đối chiếu từng bài kiểm tra ở mục D5 với code, nói rõ vì sao code qua bài đó.
-5. Năm câu hỏi vấn đáp thầy có thể hỏi về phần này, kèm câu trả lời ngắn.
+5. Năm câu hỏi vấn đáp thầy có thể hỏi về phần này, kèm câu trả lời ngắn để bạn sinh viên tự trả lời được.
+6. Cuối cùng, nhắc bạn ấy một câu: dù có AI viết hộ thì vẫn phải hiểu rõ phần chung (lớp `Dish`, `Ingredients`, `IUpdatable` và cách các phần ghép với nhau), vì thầy hỏi là phải trả lời được.
 
 ==================== HẾT PROMPT ====================

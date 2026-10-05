@@ -12,6 +12,8 @@ public class Part2CustomerTests
     {
         public FakeDish() : base("Món thử", 100000, 3) { }
 
+        public override string Slogan => "Slogan thử";
+
         public override IReadOnlyDictionary<string, int> GetIngredients()
         {
             return new Dictionary<string, int> { [Ingredients.Tea] = 1 };
@@ -48,9 +50,9 @@ public class Part2CustomerTests
     [Fact]
     public void TypeNames_AreCorrect()
     {
-        Assert.Equal("Khách thường", new NormalCustomer("A", new FakeDish()).TypeName);
-        Assert.Equal("Khách VIP", new VipCustomer("A", new FakeDish()).TypeName);
-        Assert.Equal("Khách khó tính", new PickyCustomer("A", new FakeDish()).TypeName);
+        Assert.Equal("Khách vãng lai", new NormalCustomer("A", new FakeDish()).TypeName);
+        Assert.Equal("Đại gia", new VipCustomer("A", new FakeDish()).TypeName);
+        Assert.Equal("Reviewer khó tính", new PickyCustomer("A", new FakeDish()).TypeName);
     }
 
     [Fact]
@@ -126,9 +128,34 @@ public class Part2CustomerTests
     [Fact]
     public void ToString_ShowsNameTypeOrderAndPatience()
     {
-        Customer customer = new VipCustomer("Anh Minh", new FakeDish());
+        Customer customer = new VipCustomer("Anh Shipper", new FakeDish());
         Wait(customer, 5);
-        Assert.Equal("Anh Minh (Khách VIP) gọi Món thử - kiên nhẫn 20/25", customer.ToString());
+        Assert.Equal("Anh Shipper (Đại gia) gọi Món thử - kiên nhẫn 20/25", customer.ToString());
+    }
+
+    [Fact]
+    public void EachType_SaysItsOwnLines()
+    {
+        Customer normal = new NormalCustomer("A", new FakeDish());
+        Assert.Equal("Ngon, cảm ơn quán nha!", normal.GetThankYouMessage());
+        Assert.Equal("Thôi đi quán khác vậy...", normal.GetLeavingMessage());
+
+        Customer vip = new VipCustomer("A", new FakeDish());
+        Assert.Equal("Ngon! Khỏi thối tiền thừa.", vip.GetThankYouMessage());
+        Assert.Equal("Đại gia mà bắt chờ à? Không bao giờ quay lại!", vip.GetLeavingMessage());
+
+        Customer picky = new PickyCustomer("A", new FakeDish());
+        Assert.Equal("Chờ lâu thế này, về viết review 1 sao!", picky.GetLeavingMessage());
+    }
+
+    [Fact]
+    public void PickyCustomer_ThankYouDependsOnWaitTime()
+    {
+        Customer picky = new PickyCustomer("A", new FakeDish());
+        Wait(picky, 10);
+        Assert.Equal("Nhanh đấy, cho 5 sao!", picky.GetThankYouMessage());
+        picky.Update(1);
+        Assert.Equal("Chậm quá... thôi 3 sao.", picky.GetThankYouMessage());
     }
 
     [Fact]

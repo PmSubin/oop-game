@@ -32,6 +32,12 @@ public abstract class Dish
     /// </summary>
     public abstract IReadOnlyDictionary<string, int> GetIngredients();
 
+    /// <summary>
+    /// Câu slogan vui của món, hiện trên giao diện khi chọn món.
+    /// Mỗi món con tự viết câu của mình.
+    /// </summary>
+    public abstract string Slogan { get; }
+
     // Giá luôn hiện kiểu Việt Nam (45.000đ), không phụ thuộc cài đặt ngôn ngữ của máy.
     public override string ToString()
     {

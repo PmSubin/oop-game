@@ -12,6 +12,8 @@ public class Part3CookingTests
     {
         public FakeDish(string name = "Món thử", int cookTime = 3) : base(name, 30000, cookTime) { }
 
+        public override string Slogan => "Slogan thử";
+
         public override IReadOnlyDictionary<string, int> GetIngredients()
         {
             return new Dictionary<string, int> { [Ingredients.Beef] = 1, [Ingredients.Vegetables] = 2 };
@@ -75,7 +77,10 @@ public class Part3CookingTests
         Assert.Equal(10000, supplier.GetPrice(Ingredients.Pork));
         Assert.Equal(500, supplier.GetPrice(Ingredients.Ice));
         Assert.Equal(30000, supplier.GetTotalPrice(Ingredients.Pork, 3));
-        Assert.Equal(10, supplier.GetAvailableIngredients().Count);
+        Assert.Equal(13, supplier.GetAvailableIngredients().Count);
+        Assert.Equal(4000, supplier.GetPrice(Ingredients.InstantNoodle));
+        Assert.Equal(5000, supplier.GetPrice(Ingredients.Milk));
+        Assert.Equal(6000, supplier.GetPrice(Ingredients.Pearl));
         Assert.Throws<ArgumentException>(() => supplier.GetPrice("Tôm hùm"));
     }
 

@@ -6,9 +6,12 @@
 
 ## A. Bạn làm gì (đọc trước)
 
-Bạn làm **nhà bếp** của quán, gồm 4 lớp:
+Bạn cai quản **cái bếp**, nơi nóng nhất quán. Khách ngoài kia đang gõ đũa chờ, còn bếp chỉ có **2 cái chảo**.
+Hết trân châu thì Trà Sữa Full Topping Cháy Ví cũng phải chịu thua.
 
-- **`Inventory` (kho):** quán còn bao nhiêu thịt bò, rau, bánh phở... Có thể thêm nguyên liệu, kiểm tra đủ nấu một món không, và trừ nguyên liệu khi nấu.
+Bạn làm 4 lớp:
+
+- **`Inventory` (kho):** quán còn bao nhiêu thịt bò, rau, mì gói, trân châu... Có thể thêm nguyên liệu, kiểm tra đủ nấu một món không, và trừ nguyên liệu khi nấu.
   Quan trọng: **thiếu một thứ là không trừ gì cả** (không được trừ dở dang).
 - **`Supplier` (nhà cung cấp):** bảng giá mua từng nguyên liệu.
 - **`CookingOrder`:** một món đang nấu, còn bao nhiêu giây nữa thì xong.
@@ -153,11 +156,13 @@ Khi nhóm trưởng bấm **Merge** là xong. Issue #3 tự đóng, tên bạn n
 
 ==================== BẮT ĐẦU PROMPT ====================
 
-Bạn là lập trình viên C# đang hướng dẫn một sinh viên năm nhất. Hãy viết code cho **Phần 3: Bếp và kho nguyên liệu** của đồ án môn Lập trình hướng đối tượng, **đúng chính xác** theo đặc tả bên dưới.
+Bạn là một anh/chị khoá trên giỏi C#, vui tính, đang kèm một bạn sinh viên năm nhất làm đồ án môn Lập trình hướng đối tượng. Hãy viết code cho **Phần 3: Bếp và kho nguyên liệu**, **đúng chính xác** theo đặc tả bên dưới.
+
+**Giọng văn khi giải thích:** thân thiện, vui vẻ, dễ hiểu, xưng "mình" và gọi "bạn". Dùng ví dụ đời thường trong quán ăn (món, khách, bếp) để giải thích khái niệm OOP. Có thể đùa nhẹ theo phong cách của game. **Nhưng code và kiến thức kỹ thuật phải chính xác tuyệt đối:** đùa ở lời giải thích, không đùa trong code.
 
 ### D1. Bối cảnh dự án
 
-- Game **"Quán Ăn Bận Rộn"**, viết bằng C# .NET 9 và Windows Forms. Người chơi điều hành một quán ăn: khách vào gọi món, người chơi nấu rồi phục vụ để nhận tiền và tip. Khách chờ lâu thì bỏ về, quán mất uy tín. Hết nguyên liệu thì nhập thêm.
+- Game **"Quán Ăn Bận Rộn"**, viết bằng C# .NET 9 và Windows Forms. Người chơi điều hành một quán ăn sinh viên với thực đơn "bựa" (Phở Gõ Deadline, Bánh Mì Không Người Yêu, Trà Sữa Full Topping Cháy Ví...). Khách vào gọi món, người chơi nấu rồi phục vụ để nhận tiền và tip. Khách chờ lâu thì bỏ về, quán mất uy tín. Hết nguyên liệu thì nhập thêm.
 - Solution `OopGame.sln` gồm 3 project:
   - `src/OopGame.Core`: class library `net9.0`, chứa **toàn bộ logic game**, không có giao diện (không dùng `System.Windows.Forms`).
   - `src/OopGame.WinForms`: giao diện Windows Forms (`net9.0-windows`), tham chiếu `OopGame.Core`.
@@ -178,8 +183,9 @@ Bạn là lập trình viên C# đang hướng dẫn một sinh viên năm nhấ
 4. Code phải **dễ hiểu với sinh viên năm nhất** để trả lời vấn đáp. Áp dụng cho code bạn viết, không áp dụng cho file test có sẵn:
    - Dùng `for`, `foreach`, `if` rõ ràng.
    - **Không dùng LINQ** (`Where`, `Select`, `Any`, `All`, `FirstOrDefault`, `ToList`...), không dùng lambda, không dùng `var`, không dùng `record`.
-   - Phương thức và constructor viết thân bằng `{ }` đầy đủ.
-   - Chỉ được dùng `=>` cho **thuộc tính chỉ đọc một dòng**, ví dụ `public bool IsLeaving => Patience == 0;`, `public int Count => _dishes.Count;`, `public override string TypeName => "Khách VIP";`.
+   - Phương thức và constructor viết thân bằng `{ }` đầy đủ. Constructor rỗng chỉ gọi lớp cha được viết gọn một dòng: `: base(...) { }`.
+   - Được dùng cú pháp khởi tạo collection, ví dụ `new Dictionary<string, int> { { Ingredients.Beef, 1 } }`.
+   - Chỉ được dùng `=>` cho **thuộc tính chỉ đọc một dòng**, ví dụ `public bool IsLeaving => Patience == 0;`, `public int Count => _dishes.Count;`, `public override string Slogan => "Một ly trà, ba tiếng chém gió.";`.
    - Trong đặc tả, dòng nào chỉ ghi chữ ký (không có thân) thì bạn tự viết thân theo comment bên cạnh. Constructor của lớp con gọi lớp cha bằng `: base(...)`.
 5. Mỗi lớp và mỗi thành viên `public`, `protected` hoặc `override` có comment `/// <summary>` tiếng Việt, ngắn gọn. Trường private (kể cả `static`) đặt tên `_camelCase`.
 6. **Đóng gói:** dữ liệu bên trong (`List`, `Dictionary`, mảng) luôn là trường `private readonly`.
@@ -228,6 +234,12 @@ public abstract class Dish
     /// </summary>
     public abstract IReadOnlyDictionary<string, int> GetIngredients();
 
+    /// <summary>
+    /// Câu slogan vui của món, hiện trên giao diện khi chọn món.
+    /// Mỗi món con tự viết câu của mình.
+    /// </summary>
+    public abstract string Slogan { get; }
+
     // Giá luôn hiện kiểu Việt Nam (45.000đ), không phụ thuộc cài đặt ngôn ngữ của máy.
     public override string ToString()
     {
@@ -260,10 +272,13 @@ public static class Ingredients
     public const string Vegetables = "Rau";
     public const string Tea = "Trà";
     public const string Ice = "Đá";
+    public const string InstantNoodle = "Mì gói";
+    public const string Milk = "Sữa";
+    public const string Pearl = "Trân châu";
 
     public static IReadOnlyList<string> All { get; } = new[]
     {
-        RiceNoodle, Vermicelli, Beef, Pork, Rice, Bread, Egg, Vegetables, Tea, Ice
+        RiceNoodle, Vermicelli, Beef, Pork, Rice, Bread, Egg, Vegetables, Tea, Ice, InstantNoodle, Milk, Pearl
     };
 }
 ```
@@ -323,7 +338,7 @@ public class Supplier
     private readonly Dictionary<string, int> _prices = new Dictionary<string, int>();   // giá 1 phần, đơn vị đồng
 
     public Supplier()
-    // Thêm 10 dòng của bảng giá bên dưới vào _prices, theo đúng thứ tự trong bảng.
+    // Thêm 13 dòng của bảng giá bên dưới vào _prices, theo đúng thứ tự trong bảng.
     // Khoá dùng hằng số trong Ingredients.
 
     public int GetPrice(string ingredient)
@@ -334,7 +349,7 @@ public class Supplier
     // GetPrice(ingredient) * amount.
 
     public IReadOnlyList<string> GetAvailableIngredients()
-    // Danh sách tên các nguyên liệu có bán (10 thứ), dạng chỉ đọc:
+    // Danh sách tên các nguyên liệu có bán (13 thứ), dạng chỉ đọc:
     // tạo List<string> từ các khoá của _prices rồi trả về .AsReadOnly().
 }
 ```
@@ -353,6 +368,9 @@ Bảng giá (đồng cho 1 phần):
 | `Ingredients.Vegetables` | 2000 |
 | `Ingredients.Tea` | 1000 |
 | `Ingredients.Ice` | 500 |
+| `Ingredients.InstantNoodle` | 4000 |
+| `Ingredients.Milk` | 5000 |
+| `Ingredients.Pearl` | 6000 |
 
 #### Lớp `CookingOrder` (file `CookingOrder.cs`)
 
@@ -370,7 +388,7 @@ public class CookingOrder
     // RemainingSeconds = Math.Max(0, RemainingSeconds - seconds). Không bao giờ xuống dưới 0.
 
     public override string ToString()
-    // Định dạng: "{Dish.Name} - còn {RemainingSeconds} giây". Ví dụ: "Phở bò - còn 3 giây".
+    // Định dạng: "{Dish.Name} - còn {RemainingSeconds} giây". Ví dụ: "Phở Gõ Deadline - còn 3 giây".
 }
 ```
 
@@ -428,6 +446,8 @@ public class Part3CookingTests
     private sealed class FakeDish : Dish
     {
         public FakeDish(string name = "Món thử", int cookTime = 3) : base(name, 30000, cookTime) { }
+
+        public override string Slogan => "Slogan thử";
 
         public override IReadOnlyDictionary<string, int> GetIngredients()
         {
@@ -492,7 +512,10 @@ public class Part3CookingTests
         Assert.Equal(10000, supplier.GetPrice(Ingredients.Pork));
         Assert.Equal(500, supplier.GetPrice(Ingredients.Ice));
         Assert.Equal(30000, supplier.GetTotalPrice(Ingredients.Pork, 3));
-        Assert.Equal(10, supplier.GetAvailableIngredients().Count);
+        Assert.Equal(13, supplier.GetAvailableIngredients().Count);
+        Assert.Equal(4000, supplier.GetPrice(Ingredients.InstantNoodle));
+        Assert.Equal(5000, supplier.GetPrice(Ingredients.Milk));
+        Assert.Equal(6000, supplier.GetPrice(Ingredients.Pearl));
         Assert.Throws<ArgumentException>(() => supplier.GetPrice("Tôm hùm"));
     }
 
@@ -594,8 +617,9 @@ Trả lời theo đúng thứ tự sau:
 
 1. Danh sách các file sẽ tạo, ghi đường dẫn đầy đủ.
 2. Nội dung **đầy đủ** của từng file, mỗi file một khối code riêng, ghi đường dẫn ngay phía trên khối. Không viết tắt bằng "...", không bỏ sót phần nào.
-3. Giải thích ngắn từng lớp: làm gì, thể hiện tính chất OOP nào (đóng gói, kế thừa, đa hình, trừu tượng), ở dòng nào.
+3. Giải thích từng lớp bằng giọng vui, dễ hiểu: lớp đó làm gì trong quán, thể hiện tính chất OOP nào (đóng gói, kế thừa, đa hình, trừu tượng), ở đoạn code nào (trích đoạn code ra). Dùng ví dụ món ăn, khách, bếp cho dễ nhớ.
 4. Tự rà lại: đối chiếu từng bài kiểm tra ở mục D5 với code, nói rõ vì sao code qua bài đó.
-5. Năm câu hỏi vấn đáp thầy có thể hỏi về phần này, kèm câu trả lời ngắn.
+5. Năm câu hỏi vấn đáp thầy có thể hỏi về phần này, kèm câu trả lời ngắn để bạn sinh viên tự trả lời được.
+6. Cuối cùng, nhắc bạn ấy một câu: dù có AI viết hộ thì vẫn phải hiểu rõ phần chung (lớp `Dish`, `Ingredients`, `IUpdatable` và cách các phần ghép với nhau), vì thầy hỏi là phải trả lời được.
 
 ==================== HẾT PROMPT ====================

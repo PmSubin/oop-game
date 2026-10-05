@@ -1,6 +1,10 @@
 # Quán Ăn Bận Rộn
 
-Đồ án môn Lập trình hướng đối tượng. Game quản lý quán ăn viết bằng C# Windows Forms, nhóm 4 người.
+Đồ án môn Lập trình hướng đối tượng. Game quản lý quán ăn sinh viên viết bằng C# Windows Forms, nhóm 4 người.
+
+Bạn là chủ một quán ăn sinh viên với thực đơn không giống ai: **Phở Gõ Deadline**, **Bún Bò Cay Như Người Yêu Cũ**,
+**Bánh Mì Không Người Yêu**, **Mì Tôm Trứng Mùa Thi**, **Trà Sữa Full Topping Cháy Ví**...
+Khách thì đủ kiểu: khách vãng lai dễ tính, đại gia tip đậm nhưng không chờ nổi, và reviewer khó tính lúc nào cũng dọa cho 1 sao.
 
 ## Game chơi thế nào
 
@@ -16,9 +20,9 @@
 
 | Tính chất | Ở đâu |
 | --- | --- |
-| Trừu tượng | `Dish`, `Customer` là lớp `abstract` |
-| Kế thừa | `Pho`, `BanhMi`, `ComTam`... kế thừa `Dish`; `NormalCustomer`, `VipCustomer`, `PickyCustomer` kế thừa `Customer` |
-| Đa hình | Mỗi loại khách override `CalculateTip()` và `ReducePatience()` theo cách riêng; mỗi món override `GetIngredients()` |
+| Trừu tượng | `Dish`, `MainDish`, `Drink`, `Customer` là lớp `abstract` |
+| Kế thừa | `Dish` → `MainDish` → `Pho`, `BanhMi`...; `Dish` → `Drink` → `TraDa`, `TraSua`; `NormalCustomer`, `VipCustomer`, `PickyCustomer` kế thừa `Customer` |
+| Đa hình | Mỗi loại khách override `CalculateTip()`, `ReducePatience()`, `GetThankYouMessage()`, `GetLeavingMessage()`; mỗi món override `GetIngredients()` và `Slogan` |
 | Đóng gói | Tiền, uy tín, kho nguyên liệu để `private`, chỉ thay đổi qua phương thức |
 | Interface | `IUpdatable` cho những thứ thay đổi theo từng giây (khách, bếp) |
 
