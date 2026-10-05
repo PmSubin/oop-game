@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OopGame.Core", "src\OopGame
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OopGame.WinForms", "src\OopGame.WinForms\OopGame.WinForms.csproj", "{F9F149DC-69B5-45B4-861C-9E17F6D730C0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05-4346-4AA6-1389-037BE0695223}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OopGame.Tests", "tests\OopGame.Tests\OopGame.Tests.csproj", "{7381906F-2DE8-49B3-A66A-E97DD98FDD45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +47,18 @@ Global
 		{F9F149DC-69B5-45B4-861C-9E17F6D730C0}.Release|x64.Build.0 = Release|Any CPU
 		{F9F149DC-69B5-45B4-861C-9E17F6D730C0}.Release|x86.ActiveCfg = Release|Any CPU
 		{F9F149DC-69B5-45B4-861C-9E17F6D730C0}.Release|x86.Build.0 = Release|Any CPU
+		{7381906F-2DE8-49B3-A66A-E97DD98FDD45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7381906F-2DE8-49B3-A66A-E97DD98FDD45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7381906F-2DE8-49B3-A66A-E97DD98FDD45}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7381906F-2DE8-49B3-A66A-E97DD98FDD45}.Debug|x64.Build.0 = Debug|Any CPU
+		{7381906F-2DE8-49B3-A66A-E97DD98FDD45}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7381906F-2DE8-49B3-A66A-E97DD98FDD45}.Debug|x86.Build.0 = Debug|Any CPU
+		{7381906F-2DE8-49B3-A66A-E97DD98FDD45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7381906F-2DE8-49B3-A66A-E97DD98FDD45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7381906F-2DE8-49B3-A66A-E97DD98FDD45}.Release|x64.ActiveCfg = Release|Any CPU
+		{7381906F-2DE8-49B3-A66A-E97DD98FDD45}.Release|x64.Build.0 = Release|Any CPU
+		{7381906F-2DE8-49B3-A66A-E97DD98FDD45}.Release|x86.ActiveCfg = Release|Any CPU
+		{7381906F-2DE8-49B3-A66A-E97DD98FDD45}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,5 +66,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{61FF0178-AF74-4686-8797-B960AE19F79B} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{F9F149DC-69B5-45B4-861C-9E17F6D730C0} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{7381906F-2DE8-49B3-A66A-E97DD98FDD45} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 	EndGlobalSection
 EndGlobal

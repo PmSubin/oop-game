@@ -41,5 +41,6 @@ Cần **Visual Studio 2022** (bản 17.12 trở lên) có cài workload **.NET d
 
 ## Làm việc nhóm
 
-- Ai làm phần nào: xem [TASKS.md](TASKS.md) và tab **Issues** trên GitHub.
+- Ai làm phần nào: xem [TASKS.md](TASKS.md).
+- Hướng dẫn từng phần (kèm prompt cho AI): xem [docs/](docs/README.md).
 - Chưa biết dùng GitHub: đọc [HUONG-DAN-GITHUB.md](HUONG-DAN-GITHUB.md).
