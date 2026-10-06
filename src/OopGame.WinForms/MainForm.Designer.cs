@@ -48,7 +48,7 @@ partial class MainForm
         //
         lblReputation.AutoSize = true;
         lblReputation.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-        lblReputation.Location = new Point(240, 15);
+        lblReputation.Location = new Point(300, 15);
         lblReputation.Name = "lblReputation";
         lblReputation.Size = new Size(120, 25);
         lblReputation.TabIndex = 1;
@@ -58,7 +58,7 @@ partial class MainForm
         //
         lblDay.AutoSize = true;
         lblDay.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-        lblDay.Location = new Point(460, 15);
+        lblDay.Location = new Point(580, 15);
         lblDay.Name = "lblDay";
         lblDay.Size = new Size(70, 25);
         lblDay.TabIndex = 2;
@@ -68,7 +68,7 @@ partial class MainForm
         //
         lblClock.AutoSize = true;
         lblClock.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-        lblClock.Location = new Point(660, 15);
+        lblClock.Location = new Point(860, 15);
         lblClock.Name = "lblClock";
         lblClock.Size = new Size(60, 25);
         lblClock.TabIndex = 3;
@@ -88,13 +88,14 @@ partial class MainForm
         lstCustomers.FormattingEnabled = true;
         lstCustomers.Location = new Point(20, 75);
         lstCustomers.Name = "lstCustomers";
-        lstCustomers.Size = new Size(270, 224);
+        lstCustomers.Size = new Size(420, 224);
+        lstCustomers.HorizontalScrollbar = true;
         lstCustomers.TabIndex = 5;
         //
         // lblMenuTitle
         //
         lblMenuTitle.AutoSize = true;
-        lblMenuTitle.Location = new Point(305, 52);
+        lblMenuTitle.Location = new Point(455, 52);
         lblMenuTitle.Name = "lblMenuTitle";
         lblMenuTitle.Size = new Size(70, 20);
         lblMenuTitle.TabIndex = 6;
@@ -103,26 +104,29 @@ partial class MainForm
         // lstMenu
         //
         lstMenu.FormattingEnabled = true;
-        lstMenu.Location = new Point(305, 75);
+        lstMenu.Location = new Point(455, 75);
         lstMenu.Name = "lstMenu";
-        lstMenu.Size = new Size(270, 224);
+        lstMenu.Size = new Size(330, 224);
+        lstMenu.HorizontalScrollbar = true;
         lstMenu.TabIndex = 7;
+        lstMenu.SelectedIndexChanged += lstMenu_SelectedIndexChanged;
         //
         // lblReadyTitle
         //
         lblReadyTitle.AutoSize = true;
-        lblReadyTitle.Location = new Point(590, 52);
+        lblReadyTitle.Location = new Point(800, 52);
         lblReadyTitle.Name = "lblReadyTitle";
         lblReadyTitle.Size = new Size(120, 20);
         lblReadyTitle.TabIndex = 8;
-        lblReadyTitle.Text = "Món đã nấu xong";
+        lblReadyTitle.Text = "Bếp";
         //
         // lstReady
         //
         lstReady.FormattingEnabled = true;
-        lstReady.Location = new Point(590, 75);
+        lstReady.Location = new Point(800, 75);
         lstReady.Name = "lstReady";
-        lstReady.Size = new Size(270, 224);
+        lstReady.Size = new Size(280, 224);
+        lstReady.HorizontalScrollbar = true;
         lstReady.TabIndex = 9;
         //
         // lstLog
@@ -130,14 +134,15 @@ partial class MainForm
         lstLog.FormattingEnabled = true;
         lstLog.Location = new Point(20, 315);
         lstLog.Name = "lstLog";
-        lstLog.Size = new Size(840, 144);
+        lstLog.Size = new Size(1060, 144);
+        lstLog.HorizontalScrollbar = true;
         lstLog.TabIndex = 10;
         //
         // btnOpen
         //
         btnOpen.Location = new Point(20, 475);
         btnOpen.Name = "btnOpen";
-        btnOpen.Size = new Size(195, 50);
+        btnOpen.Size = new Size(250, 50);
         btnOpen.TabIndex = 11;
         btnOpen.Text = "Mở cửa";
         btnOpen.UseVisualStyleBackColor = true;
@@ -145,9 +150,9 @@ partial class MainForm
         //
         // btnCook
         //
-        btnCook.Location = new Point(235, 475);
+        btnCook.Location = new Point(290, 475);
         btnCook.Name = "btnCook";
-        btnCook.Size = new Size(195, 50);
+        btnCook.Size = new Size(250, 50);
         btnCook.TabIndex = 12;
         btnCook.Text = "Nấu món";
         btnCook.UseVisualStyleBackColor = true;
@@ -155,9 +160,9 @@ partial class MainForm
         //
         // btnServe
         //
-        btnServe.Location = new Point(450, 475);
+        btnServe.Location = new Point(560, 475);
         btnServe.Name = "btnServe";
-        btnServe.Size = new Size(195, 50);
+        btnServe.Size = new Size(250, 50);
         btnServe.TabIndex = 13;
         btnServe.Text = "Phục vụ";
         btnServe.UseVisualStyleBackColor = true;
@@ -165,9 +170,9 @@ partial class MainForm
         //
         // btnBuy
         //
-        btnBuy.Location = new Point(665, 475);
+        btnBuy.Location = new Point(830, 475);
         btnBuy.Name = "btnBuy";
-        btnBuy.Size = new Size(195, 50);
+        btnBuy.Size = new Size(250, 50);
         btnBuy.TabIndex = 14;
         btnBuy.Text = "Nhập hàng";
         btnBuy.UseVisualStyleBackColor = true;
@@ -177,7 +182,7 @@ partial class MainForm
         //
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(880, 545);
+        ClientSize = new Size(1100, 545);
         Controls.Add(lblMoney);
         Controls.Add(lblReputation);
         Controls.Add(lblDay);
@@ -198,6 +203,7 @@ partial class MainForm
         Name = "MainForm";
         StartPosition = FormStartPosition.CenterScreen;
         Text = "Quán Ăn Bận Rộn";
+        FormClosed += MainForm_FormClosed;
         ResumeLayout(false);
         PerformLayout();
     }
