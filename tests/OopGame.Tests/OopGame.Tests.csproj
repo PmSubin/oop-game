@@ -27,5 +27,8 @@
     <Compile Remove="Pending\**" />
     <None Include="Pending\**" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Part1MenuTests.cs" />
+  </ItemGroup>
 
 </Project>
