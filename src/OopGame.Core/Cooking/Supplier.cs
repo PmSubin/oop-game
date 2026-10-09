@@ -1,15 +1,11 @@
 ﻿namespace OopGame.Core.Cooking;
 
-/// <summary>
-/// Nhà cung cấp: giữ bảng giá mua từng nguyên liệu.
-/// </summary>
+// nha cung cap: giu bang gia mua tung nguyen lieu
 public class Supplier
 {
-    private readonly Dictionary<string, int> _prices = new Dictionary<string, int>();   // giá 1 phần, đơn vị đồng
+    private readonly Dictionary<string, int> _prices = new Dictionary<string, int>(); // gia 1 phan, don vi dong
 
-    /// <summary>
-    /// Tạo nhà cung cấp với bảng giá của 13 nguyên liệu.
-    /// </summary>
+    // tao nha cung cap voi bang gia cua 13 nguyen lieu
     public Supplier()
     {
         _prices.Add(Ingredients.RiceNoodle, 5000);
@@ -27,9 +23,7 @@ public class Supplier
         _prices.Add(Ingredients.Pearl, 6000);
     }
 
-    /// <summary>
-    /// Giá mua một phần nguyên liệu. Nguyên liệu không có trong bảng giá thì ném ArgumentException.
-    /// </summary>
+    // gia mua mot phan nguyen lieu
     public int GetPrice(string ingredient)
     {
         int price;
@@ -40,17 +34,13 @@ public class Supplier
         throw new ArgumentException("Nhà cung cấp không bán nguyên liệu này.", nameof(ingredient));
     }
 
-    /// <summary>
-    /// Tổng tiền mua một số lượng nguyên liệu (giá một phần nhân số lượng).
-    /// </summary>
+    // tong tien mua mot so luong nguyen lieu (gia mot phan nhan so luong)
     public int GetTotalPrice(string ingredient, int amount)
     {
         return GetPrice(ingredient) * amount;
     }
 
-    /// <summary>
-    /// Danh sách tên các nguyên liệu nhà cung cấp có bán, dạng chỉ đọc.
-    /// </summary>
+    // danh sach ten cac nguyen lieu nha cung cap co ban, dang chi doc
     public IReadOnlyList<string> GetAvailableIngredients()
     {
         List<string> names = new List<string>();

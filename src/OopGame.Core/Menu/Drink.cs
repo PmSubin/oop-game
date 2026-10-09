@@ -1,21 +1,15 @@
 ﻿namespace OopGame.Core.Menu;
 
-/// <summary>
-/// Lớp cha cho đồ uống.
-/// </summary>
+// lop cha cho do uong
 public abstract class Drink : Dish
 {
-    /// <summary>
-    /// Khởi tạo đồ uống.
-    /// </summary>
+    // khoi tao do uong
     protected Drink(string name, int price, int cookTimeSeconds)
         : base(name, price, cookTimeSeconds)
     {
     }
 
-    /// <summary>
-    /// Hiển thị tên đồ uống.
-    /// </summary>
+    // hien thi ten do uong
     public override string ToString()
     {
         return "[Đồ uống] " + base.ToString();

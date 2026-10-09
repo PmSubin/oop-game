@@ -1,9 +1,6 @@
 namespace OopGame.Core.Menu;
 
-/// <summary>
-/// Lớp cha trừu tượng cho mọi món ăn trong quán.
-/// Không tạo trực tiếp được, phải tạo qua lớp con (Pho, BanhMi, ComTam...).
-/// </summary>
+// lop cha truu tuong cho moi mon an trong quan
 public abstract class Dish
 {
     public string Name { get; }
@@ -26,19 +23,13 @@ public abstract class Dish
         CookTimeSeconds = cookTimeSeconds;
     }
 
-    /// <summary>
-    /// Nguyên liệu cần để nấu một phần: tên nguyên liệu và số lượng.
-    /// Mỗi món con tự khai báo công thức của mình.
-    /// </summary>
+    // nguyen lieu can de nau mot phan: ten nguyen lieu va so luong
     public abstract IReadOnlyDictionary<string, int> GetIngredients();
 
-    /// <summary>
-    /// Câu slogan vui của món, hiện trên giao diện khi chọn món.
-    /// Mỗi món con tự viết câu của mình.
-    /// </summary>
+    // cau slogan vui cua mon, hien tren giao dien khi chon mon
     public abstract string Slogan { get; }
 
-    // Giá luôn hiện kiểu Việt Nam (45.000đ), không phụ thuộc cài đặt ngôn ngữ của máy.
+    // gia luon hien kieu viet nam (45.000d), khong phu thuoc cai dat ngon ngu cua may
     public override string ToString()
     {
         return $"{Name} - {Price.ToString("N0", VietnameseCulture)}đ";

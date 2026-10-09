@@ -2,24 +2,16 @@
 
 namespace OopGame.Core.Customers;
 
-/// <summary>
-/// Đại gia: tip rất đậm nhưng chỉ chờ được 25 giây.
-/// </summary>
+// dai gia: tip rat dam nhung chi cho duoc 25 giay
 public class VipCustomer : Customer
 {
-    /// <summary>
-    /// Tạo đại gia với kiên nhẫn tối đa 25 giây.
-    /// </summary>
+    // tao dai gia voi kien nhan toi da 25 giay
     public VipCustomer(string name, Dish order) : base(name, order, 25) { }
 
-    /// <summary>
-    /// Tên loại khách.
-    /// </summary>
+    // ten loai khach
     public override string TypeName => "Đại gia";
 
-    /// <summary>
-    /// Chờ không quá 15 giây thì tip 30% giá món, ngược lại tip 10%.
-    /// </summary>
+    // cho khong qua 15 giay thi tip 30% gia mon, nguoc lai tip 10%
     public override int CalculateTip()
     {
         if (WaitedSeconds <= 15)
@@ -29,17 +21,13 @@ public class VipCustomer : Customer
         return Order.Price * 10 / 100;
     }
 
-    /// <summary>
-    /// Câu cảm ơn kiểu đại gia.
-    /// </summary>
+    // cau cam on kieu dai gia
     public override string GetThankYouMessage()
     {
         return "Ngon! Khỏi thối tiền thừa.";
     }
 
-    /// <summary>
-    /// Câu nói khi đại gia bỏ về.
-    /// </summary>
+    // cau noi khi dai gia bo ve
     public override string GetLeavingMessage()
     {
         return "Đại gia mà bắt chờ à? Không bao giờ quay lại!";

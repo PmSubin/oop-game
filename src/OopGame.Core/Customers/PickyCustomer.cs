@@ -2,24 +2,16 @@
 
 namespace OopGame.Core.Customers;
 
-/// <summary>
-/// Reviewer khó tính: chờ quá 10 giây là bực gấp đôi.
-/// </summary>
+// reviewer kho tinh: cho qua 10 giay la buc gap doi
 public class PickyCustomer : Customer
 {
-    /// <summary>
-    /// Tạo reviewer khó tính với kiên nhẫn tối đa 40 giây.
-    /// </summary>
+    // tao reviewer kho tinh voi kien nhan toi da 40 giay
     public PickyCustomer(string name, Dish order) : base(name, order, 40) { }
 
-    /// <summary>
-    /// Tên loại khách.
-    /// </summary>
+    // ten loai khach
     public override string TypeName => "Reviewer khó tính";
 
-    /// <summary>
-    /// Chờ quá 10 giây thì kiên nhẫn giảm gấp đôi, ngược lại giảm bình thường.
-    /// </summary>
+    // cho qua 10 giay thi kien nhan giam gap doi, nguoc lai giam binh thuong
     protected override void ReducePatience(int seconds)
     {
         if (WaitedSeconds > 10)
@@ -32,9 +24,7 @@ public class PickyCustomer : Customer
         }
     }
 
-    /// <summary>
-    /// Chờ không quá 10 giây thì tip 20% giá món, ngược lại không tip.
-    /// </summary>
+    // cho khong qua 10 giay thi tip 20% gia mon, nguoc lai khong tip
     public override int CalculateTip()
     {
         if (WaitedSeconds <= 10)
@@ -44,9 +34,7 @@ public class PickyCustomer : Customer
         return 0;
     }
 
-    /// <summary>
-    /// Câu nói tuỳ theo thời gian chờ: nhanh thì khen, chậm thì chê.
-    /// </summary>
+    // cau noi tuy theo thoi gian cho: nhanh thi khen, cham thi che
     public override string GetThankYouMessage()
     {
         if (WaitedSeconds <= 10)
@@ -56,9 +44,7 @@ public class PickyCustomer : Customer
         return "Chậm quá... thôi 3 sao.";
     }
 
-    /// <summary>
-    /// Câu nói khi reviewer bỏ về.
-    /// </summary>
+    // cau noi khi reviewer bo ve
     public override string GetLeavingMessage()
     {
         return "Chờ lâu thế này, về viết review 1 sao!";

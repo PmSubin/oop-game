@@ -2,9 +2,7 @@
 
 namespace OopGame.Core.Menu;
 
-/// <summary>
-/// Món Bún Bò Cay Như Người Yêu Cũ.
-/// </summary>
+// mon bun bo cay nhu nguoi yeu cu
 public class BunBo : MainDish
 {
     private static readonly Dictionary<string, int> _recipe = new Dictionary<string, int>
@@ -14,22 +12,16 @@ public class BunBo : MainDish
         { Ingredients.Vegetables, 1 }
     };
 
-    /// <summary>
-    /// Khởi tạo món bún bò.
-    /// </summary>
+    // khoi tao mon bun bo
     public BunBo()
         : base("Bún Bò Cay Như Người Yêu Cũ", 45000, 6)
     {
     }
 
-    /// <summary>
-    /// Khẩu hiệu của món.
-    /// </summary>
+    // khau hieu cua mon
     public override string Slogan => "Cay xé lưỡi, nhớ mãi không quên.";
 
-    /// <summary>
-    /// Công thức nguyên liệu.
-    /// </summary>
+    // cong thuc nguyen lieu
     public override IReadOnlyDictionary<string, int> GetIngredients()
     {
         return new ReadOnlyDictionary<string, int>(_recipe);

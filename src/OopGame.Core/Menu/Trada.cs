@@ -2,9 +2,7 @@
 
 namespace OopGame.Core.Menu;
 
-/// <summary>
-/// Món Trà Đá Chém Gió.
-/// </summary>
+// mon tra da chem gio
 public class TraDa : Drink
 {
     private static readonly Dictionary<string, int> _recipe = new Dictionary<string, int>

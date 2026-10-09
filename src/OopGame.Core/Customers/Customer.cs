@@ -2,50 +2,31 @@
 
 namespace OopGame.Core.Customers;
 
-/// <summary>
-/// Lớp cha trừu tượng cho mọi khách trong quán.
-/// Không tạo trực tiếp được, phải tạo qua lớp con (NormalCustomer, VipCustomer, PickyCustomer).
-/// </summary>
+// lop cha truu tuong cho moi khach trong quan
 public abstract class Customer : IUpdatable
 {
-    /// <summary>
-    /// Tên khách.
-    /// </summary>
+    // ten khach
     public string Name { get; }
 
-    /// <summary>
-    /// Món khách đã gọi.
-    /// </summary>
+    // mon khach da goi
     public Dish Order { get; }
 
-    /// <summary>
-    /// Số giây kiên nhẫn tối đa.
-    /// </summary>
+    // so giay kien nhan toi da
     public int MaxPatience { get; }
 
-    /// <summary>
-    /// Kiên nhẫn còn lại, luôn nằm trong khoảng 0 đến MaxPatience. Bên ngoài chỉ được đọc.
-    /// </summary>
+    // kien nhan con lai, luon nam trong khoang 0 den MaxPatience
     public int Patience { get; private set; }
 
-    /// <summary>
-    /// Số giây khách đã chờ.
-    /// </summary>
+    // so giay khach da cho
     public int WaitedSeconds { get; private set; }
 
-    /// <summary>
-    /// Hết kiên nhẫn thì khách bỏ về.
-    /// </summary>
+    // het kien nhan thi khach bo ve
     public bool IsLeaving => Patience == 0;
 
-    /// <summary>
-    /// Tên loại khách để hiện lên màn hình.
-    /// </summary>
+    // ten loai khach de hien len man hinh
     public abstract string TypeName { get; }
 
-    /// <summary>
-    /// Tạo một khách mới: kiên nhẫn đầy, chưa chờ giây nào.
-    /// </summary>
+    // tao mot khach moi: kien nhan day, chua cho giay nao
     protected Customer(string name, Dish order, int maxPatience)
     {
         Name = name;
@@ -55,9 +36,7 @@ public abstract class Customer : IUpdatable
         WaitedSeconds = 0;
     }
 
-    /// <summary>
-    /// Quán gọi mỗi giây: khách chờ thêm và kiên nhẫn giảm đi.
-    /// </summary>
+    // quan goi moi giay: khach cho them va kien nhan giam di
     public void Update(int elapsedSeconds)
     {
         if (elapsedSeconds <= 0)
@@ -65,46 +44,33 @@ public abstract class Customer : IUpdatable
             return;
         }
 
-        // Thứ tự quan trọng: tăng thời gian chờ trước, giảm kiên nhẫn sau.
+        // thu tu quan trong: tang thoi gian cho truoc, giam kien nhan sau
         WaitedSeconds += elapsedSeconds;
         ReducePatience(elapsedSeconds);
     }
 
-    /// <summary>
-    /// Giảm kiên nhẫn. Mặc định mỗi giây giảm 1; lớp con có thể viết lại cách giảm.
-    /// </summary>
+    // giam kien nhan
     protected virtual void ReducePatience(int seconds)
     {
         SetPatience(Patience - seconds);
     }
 
-    /// <summary>
-    /// Đặt kiên nhẫn, tự giữ trong khoảng 0 đến MaxPatience.
-    /// Lớp con muốn đổi Patience thì phải gọi hàm này.
-    /// </summary>
+    // dat kien nhan, tu giu trong khoang 0 den MaxPatience
     protected void SetPatience(int value)
     {
         Patience = Math.Clamp(value, 0, MaxPatience);
     }
 
-    /// <summary>
-    /// Tiền tip khi được phục vụ, mỗi loại khách tự tính.
-    /// </summary>
+    // tien tip khi duoc phuc vu, moi loai khach tu tinh
     public abstract int CalculateTip();
 
-    /// <summary>
-    /// Câu khách nói khi được phục vụ.
-    /// </summary>
+    // cau khach noi khi duoc phuc vu
     public abstract string GetThankYouMessage();
 
-    /// <summary>
-    /// Câu khách nói khi hết kiên nhẫn bỏ về.
-    /// </summary>
+    // cau khach noi khi het kien nhan bo ve
     public abstract string GetLeavingMessage();
 
-    /// <summary>
-    /// Mô tả khách, ví dụ: "Anh Shipper (Đại gia) gọi Phở Gõ Deadline - kiên nhẫn 20/25".
-    /// </summary>
+    // mo ta khach, vi du: "anh shipper (dai gia) goi pho go deadline - kien nhan 20/25"
     public override string ToString()
     {
         return $"{Name} ({TypeName}) gọi {Order.Name} - kiên nhẫn {Patience}/{MaxPatience}";

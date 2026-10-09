@@ -2,9 +2,7 @@
 
 namespace OopGame.Core.Customers;
 
-/// <summary>
-/// "Máy đẻ khách": tạo khách ngẫu nhiên với tên vui, món ngẫu nhiên và tỉ lệ 60% vãng lai, 20% đại gia, 20% reviewer.
-/// </summary>
+// "may de khach": tao khach ngau nhien voi ten vui, mon ngau nhien va ti le 60% vang lai, 20% dai gia, 20% reviewer
 public class CustomerFactory
 {
     private readonly Random _random;
@@ -16,18 +14,13 @@ public class CustomerFactory
         "Em Fan Cứng Trà Sữa", "Bạn Trưởng Nhóm Chạy Deadline", "Chú Xe Ôm Hay Kể Chuyện"
     };
 
-    /// <summary>
-    /// Tạo máy đẻ khách, mọi lựa chọn ngẫu nhiên đều dùng Random được truyền vào.
-    /// </summary>
+    // tao may de khach, moi lua chon ngau nhien deu dung Random duoc truyen vao
     public CustomerFactory(Random random)
     {
         _random = random;
     }
 
-    /// <summary>
-    /// Tạo một khách ngẫu nhiên, gọi một món ngẫu nhiên trong thực đơn.
-    /// Ném ArgumentException nếu thực đơn trống.
-    /// </summary>
+    // tao mot khach ngau nhien, goi mot mon ngau nhien trong thuc don
     public Customer CreateRandom(IReadOnlyList<Dish> menu)
     {
         if (menu.Count == 0)

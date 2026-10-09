@@ -2,46 +2,32 @@
 
 namespace OopGame.Core.Cooking;
 
-/// <summary>
-/// Một món đang nấu trong bếp: nhớ món nào và còn bao nhiêu giây nữa thì xong.
-/// </summary>
+// mot mon dang nau trong bep: nho mon nao va con bao nhieu giay nua thi xong
 public class CookingOrder
 {
-    /// <summary>
-    /// Bắt đầu nấu một món. Thời gian còn lại ban đầu bằng thời gian nấu của món.
-    /// </summary>
+    // bat dau nau mot mon
     public CookingOrder(Dish dish)
     {
         Dish = dish;
         RemainingSeconds = dish.CookTimeSeconds;
     }
 
-    /// <summary>
-    /// Món đang được nấu.
-    /// </summary>
+    // mon dang duoc nau
     public Dish Dish { get; }
 
-    /// <summary>
-    /// Số giây còn lại để nấu xong.
-    /// </summary>
+    // so giay con lai de nau xong
     public int RemainingSeconds { get; private set; }
 
-    /// <summary>
-    /// Món đã nấu xong chưa (hết thời gian chờ).
-    /// </summary>
+    // mon da nau xong chua (het thoi gian cho)
     public bool IsDone => RemainingSeconds == 0;
 
-    /// <summary>
-    /// Trôi qua một số giây. Thời gian còn lại không bao giờ xuống dưới 0.
-    /// </summary>
+    // troi qua mot so giay
     public void Advance(int seconds)
     {
         RemainingSeconds = Math.Max(0, RemainingSeconds - seconds);
     }
 
-    /// <summary>
-    /// Mô tả món đang nấu, ví dụ: "Phở Gõ Deadline - còn 3 giây".
-    /// </summary>
+    // mo ta mon dang nau, vi du: "pho go deadline - con 3 giay"
     public override string ToString()
     {
         return $"{Dish.Name} - còn {RemainingSeconds} giây";

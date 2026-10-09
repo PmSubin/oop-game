@@ -4,49 +4,44 @@ using OopGame.Core.Menu;
 
 namespace OopGame.Core.Game;
 
-/// <summary>
-/// Quán ăn: giữ tiền, uy tín, đồng hồ và điều phối thực đơn, khách, bếp, kho.
-/// Giao diện chỉ gọi các phương thức public của lớp này, không tự tính tiền hay sửa kho.
-/// </summary>
+// quan an: giu tien, uy tin, dong ho va dieu phoi thuc don, khach, bep, kho
 public class Restaurant
 {
-    /// <summary>Giờ mở cửa (08:00).</summary>
+    // gio mo cua (08:00)
     public const int OpenHour = 8;
 
-    /// <summary>Giờ đóng cửa (20:00).</summary>
+    // gio dong cua (20:00)
     public const int CloseHour = 20;
 
-    /// <summary>Mỗi lần Tick() là 10 phút trong game.</summary>
+    // moi lan Tick() la 10 phut trong game
     public const int MinutesPerTick = 10;
 
-    /// <summary>Tiền vốn lúc mở quán.</summary>
+    // tien von luc mo quan
     public const int StartingMoney = 200000;
 
-    /// <summary>Uy tín tối đa, cũng là uy tín lúc mở quán.</summary>
+    // uy tin toi da, cung la uy tin luc mo quan
     public const int MaxReputation = 100;
 
-    /// <summary>Số khách chờ tối đa cùng lúc.</summary>
+    // so khach cho toi da cung luc
     public const int MaxWaitingCustomers = 5;
 
-    /// <summary>Số phần mỗi nguyên liệu có sẵn trong kho lúc mở quán.</summary>
+    // so phan moi nguyen lieu co san trong kho luc mo quan
     public const int StartingStockPerIngredient = 5;
 
-    /// <summary>Uy tín bị trừ mỗi khi có khách bỏ về.</summary>
+    // uy tin bi tru moi khi co khach bo ve
     public const int ReputationLostPerLeave = 10;
 
-    /// <summary>Uy tín được cộng mỗi khi phục vụ xong một khách.</summary>
+    // uy tin duoc cong moi khi phuc vu xong mot khach
     public const int ReputationGainedPerServe = 2;
 
-    /// <summary>Phần trăm khả năng có khách mới trong mỗi Tick().</summary>
+    // phan tram kha nang co khach moi trong moi Tick()
     public const int CustomerChancePercent = 30;
 
     private readonly Random _random;
     private readonly CustomerFactory _customerFactory;
     private readonly List<Customer> _waitingCustomers = new List<Customer>();
 
-    /// <summary>
-    /// Mở quán với vốn ban đầu, kho có sẵn mỗi nguyên liệu 5 phần. Chưa mở cửa ngày nào.
-    /// </summary>
+    // mo quan voi von ban dau, kho co san moi nguyen lieu 5 phan
     public Restaurant(Random random)
     {
         _random = random;
@@ -68,48 +63,46 @@ public class Restaurant
         IsOpen = false;
     }
 
-    /// <summary>Thực đơn của quán.</summary>
+    // thuc don cua quan
     public MenuBook Menu { get; }
 
-    /// <summary>Kho nguyên liệu.</summary>
+    // kho nguyen lieu
     public Inventory Inventory { get; }
 
-    /// <summary>Bếp, nấu tối đa 2 món cùng lúc.</summary>
+    // bep, nau toi da 2 mon cung luc
     public Kitchen Kitchen { get; }
 
-    /// <summary>Nhà cung cấp nguyên liệu.</summary>
+    // nha cung cap nguyen lieu
     public Supplier Supplier { get; }
 
-    /// <summary>Tiền hiện có.</summary>
+    // tien hien co
     public int Money { get; private set; }
 
-    /// <summary>Uy tín hiện tại, về 0 là thua.</summary>
+    // uy tin hien tai, ve 0 la thua
     public int Reputation { get; private set; }
 
-    /// <summary>Ngày thứ mấy, 0 khi chưa mở ngày nào.</summary>
+    // ngay thu may, 0 khi chua mo ngay nao
     public int Day { get; private set; }
 
-    /// <summary>Số phút tính từ 0 giờ, ví dụ 08:00 là 480.</summary>
+    // so phut tinh tu 0 gio, vi du 08:00 la 480
     public int MinutesOfDay { get; private set; }
 
-    /// <summary>Đồng hồ dạng "HH:mm".</summary>
+    // dong ho dang "hh:mm"
     public string ClockText => (MinutesOfDay / 60).ToString("00") + ":" + (MinutesOfDay % 60).ToString("00");
 
-    /// <summary>Quán có đang mở cửa không.</summary>
+    // quan co dang mo cua khong
     public bool IsOpen { get; private set; }
 
-    /// <summary>Uy tín về 0 là thua.</summary>
+    // uy tin ve 0 la thua
     public bool IsGameOver => Reputation <= 0;
 
-    /// <summary>Khách đang chờ, chỉ đọc.</summary>
+    // khach dang cho, chi doc
     public IReadOnlyList<Customer> WaitingCustomers => _waitingCustomers.AsReadOnly();
 
-    /// <summary>Bảng tổng kết của ngày hiện tại, null khi chưa mở ngày nào.</summary>
+    // bang tong ket cua ngay hien tai, null khi chua mo ngay nao
     public DaySummary? CurrentSummary { get; private set; }
 
-    /// <summary>
-    /// Mở cửa một ngày mới. Trả về false nếu quán đang mở hoặc đã thua.
-    /// </summary>
+    // mo cua mot ngay moi
     public bool OpenDay()
     {
         if (IsOpen || IsGameOver)
@@ -124,10 +117,7 @@ public class Restaurant
         return true;
     }
 
-    /// <summary>
-    /// Chạy một giây của game: đồng hồ chạy, bếp nấu, khách mất kiên nhẫn, có thể có khách mới.
-    /// Trả về các dòng thông báo của giây này.
-    /// </summary>
+    // chay mot giay cua game: dong ho chay, bep nau, khach mat kien nhan, co the co khach moi
     public List<string> Tick()
     {
         List<string> logs = new List<string>();
@@ -164,17 +154,13 @@ public class Restaurant
         return logs;
     }
 
-    /// <summary>
-    /// Bắt đầu nấu một món. Chỉ nấu được khi quán đang mở, bếp còn chỗ và đủ nguyên liệu.
-    /// </summary>
+    // bat dau nau mot mon
     public bool StartCooking(Dish dish)
     {
         return IsOpen && Kitchen.StartCooking(dish);
     }
 
-    /// <summary>
-    /// Mang món đã nấu xong ra cho khách. Thành công thì nhận tiền món cộng tip và được cộng uy tín.
-    /// </summary>
+    // mang mon da nau xong ra cho khach
     public bool Serve(Customer customer)
     {
         if (!IsOpen || !_waitingCustomers.Contains(customer))
@@ -197,10 +183,7 @@ public class Restaurant
         return true;
     }
 
-    /// <summary>
-    /// Mua nguyên liệu từ nhà cung cấp. Trả về false nếu số lượng sai, không có hàng hoặc không đủ tiền.
-    /// Mua được cả lúc quán đóng cửa.
-    /// </summary>
+    // mua nguyen lieu tu nha cung cap
     public bool BuyIngredient(string ingredient, int amount)
     {
         if (amount <= 0)
@@ -237,7 +220,7 @@ public class Restaurant
         return true;
     }
 
-    // Duyệt bản sao vì có thể xoá khách khỏi danh sách gốc trong lúc duyệt.
+    // duyet ban sao vi co the xoa khach khoi danh sach goc trong luc duyet
     private void UpdateWaitingCustomers(List<string> logs)
     {
         List<Customer> snapshot = new List<Customer>(_waitingCustomers);

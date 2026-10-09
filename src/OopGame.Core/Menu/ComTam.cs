@@ -2,9 +2,7 @@
 
 namespace OopGame.Core.Menu;
 
-/// <summary>
-/// Món Cơm Tấm Cứu Đói Cuối Tháng.
-/// </summary>
+// mon com tam cuu doi cuoi thang
 public class ComTam : MainDish
 {
     private static readonly Dictionary<string, int> _recipe = new Dictionary<string, int>

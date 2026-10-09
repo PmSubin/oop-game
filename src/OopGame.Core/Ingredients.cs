@@ -1,9 +1,6 @@
 namespace OopGame.Core;
 
-/// <summary>
-/// Tên các nguyên liệu dùng chung cho cả nhóm.
-/// Luôn dùng các hằng số này, không gõ tay chuỗi "Thịt bò" để tránh sai chính tả giữa các phần.
-/// </summary>
+// ten cac nguyen lieu dung chung cho ca nhom
 public static class Ingredients
 {
     public const string RiceNoodle = "Bánh phở";
