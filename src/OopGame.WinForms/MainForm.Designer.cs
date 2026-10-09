@@ -17,182 +17,260 @@ partial class MainForm
 
     private void InitializeComponent()
     {
-        lblMoney = new Label();
-        lblReputation = new Label();
+        pnlHud = new Panel();
         lblDay = new Label();
         lblClock = new Label();
+        lblMoney = new Label();
+        lblReputation = new Label();
+        pnlReputationBar = new Panel();
+        lblSpeed = new Label();
+        cboSpeed = new ComboBox();
+        btnHelp = new Button();
         lblCustomersTitle = new Label();
         lstCustomers = new ListBox();
         lblMenuTitle = new Label();
         lstMenu = new ListBox();
+        lblSlogan = new Label();
         lblReadyTitle = new Label();
         lstReady = new ListBox();
+        lblLogTitle = new Label();
         lstLog = new ListBox();
         btnOpen = new Button();
         btnCook = new Button();
         btnServe = new Button();
         btnBuy = new Button();
+        pnlHud.SuspendLayout();
         SuspendLayout();
+        //
+        // pnlHud
+        //
+        pnlHud.Location = new Point(0, 0);
+        pnlHud.Name = "pnlHud";
+        pnlHud.Size = new Size(1280, 76);
+        pnlHud.TabIndex = 0;
+        pnlHud.Controls.Add(lblDay);
+        pnlHud.Controls.Add(lblClock);
+        pnlHud.Controls.Add(lblMoney);
+        pnlHud.Controls.Add(lblReputation);
+        pnlHud.Controls.Add(pnlReputationBar);
+        pnlHud.Controls.Add(lblSpeed);
+        pnlHud.Controls.Add(cboSpeed);
+        pnlHud.Controls.Add(btnHelp);
+        //
+        // lblDay
+        //
+        lblDay.AutoSize = true;
+        lblDay.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
+        lblDay.Location = new Point(20, 22);
+        lblDay.Name = "lblDay";
+        lblDay.Size = new Size(90, 35);
+        lblDay.TabIndex = 0;
+        lblDay.Text = "Ngày 0";
+        //
+        // lblClock
+        //
+        lblClock.AutoSize = true;
+        lblClock.Font = new Font("Segoe UI", 22F, FontStyle.Bold);
+        lblClock.Location = new Point(165, 12);
+        lblClock.Name = "lblClock";
+        lblClock.Size = new Size(100, 50);
+        lblClock.TabIndex = 1;
+        lblClock.Text = "08:00";
         //
         // lblMoney
         //
         lblMoney.AutoSize = true;
-        lblMoney.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-        lblMoney.Location = new Point(20, 15);
+        lblMoney.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+        lblMoney.Location = new Point(330, 24);
         lblMoney.Name = "lblMoney";
-        lblMoney.Size = new Size(90, 25);
-        lblMoney.TabIndex = 0;
+        lblMoney.Size = new Size(150, 32);
+        lblMoney.TabIndex = 2;
         lblMoney.Text = "Tiền: 0đ";
         //
         // lblReputation
         //
         lblReputation.AutoSize = true;
-        lblReputation.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-        lblReputation.Location = new Point(300, 15);
+        lblReputation.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+        lblReputation.Location = new Point(640, 14);
         lblReputation.Name = "lblReputation";
-        lblReputation.Size = new Size(120, 25);
-        lblReputation.TabIndex = 1;
-        lblReputation.Text = "Uy tín: 100";
+        lblReputation.Size = new Size(120, 23);
+        lblReputation.TabIndex = 3;
+        lblReputation.Text = "Uy tín: 100/100";
         //
-        // lblDay
+        // pnlReputationBar
         //
-        lblDay.AutoSize = true;
-        lblDay.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-        lblDay.Location = new Point(580, 15);
-        lblDay.Name = "lblDay";
-        lblDay.Size = new Size(70, 25);
-        lblDay.TabIndex = 2;
-        lblDay.Text = "Ngày 1";
+        pnlReputationBar.Location = new Point(640, 44);
+        pnlReputationBar.Name = "pnlReputationBar";
+        pnlReputationBar.Size = new Size(240, 14);
+        pnlReputationBar.TabIndex = 4;
+        pnlReputationBar.Paint += pnlReputationBar_Paint;
         //
-        // lblClock
+        // lblSpeed
         //
-        lblClock.AutoSize = true;
-        lblClock.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-        lblClock.Location = new Point(860, 15);
-        lblClock.Name = "lblClock";
-        lblClock.Size = new Size(60, 25);
-        lblClock.TabIndex = 3;
-        lblClock.Text = "08:00";
+        lblSpeed.AutoSize = true;
+        lblSpeed.Font = new Font("Segoe UI", 10F);
+        lblSpeed.Location = new Point(960, 27);
+        lblSpeed.Name = "lblSpeed";
+        lblSpeed.Size = new Size(60, 23);
+        lblSpeed.TabIndex = 5;
+        lblSpeed.Text = "Tốc độ";
+        //
+        // cboSpeed
+        //
+        cboSpeed.DropDownStyle = ComboBoxStyle.DropDownList;
+        cboSpeed.FlatStyle = FlatStyle.Flat;
+        cboSpeed.Font = new Font("Segoe UI", 10F);
+        cboSpeed.Location = new Point(1022, 23);
+        cboSpeed.Name = "cboSpeed";
+        cboSpeed.Size = new Size(188, 31);
+        cboSpeed.TabIndex = 6;
+        cboSpeed.SelectedIndexChanged += cboSpeed_SelectedIndexChanged;
+        //
+        // btnHelp
+        //
+        btnHelp.Location = new Point(1220, 19);
+        btnHelp.Name = "btnHelp";
+        btnHelp.Size = new Size(40, 38);
+        btnHelp.TabIndex = 7;
+        btnHelp.Text = "?";
+        btnHelp.Click += btnHelp_Click;
         //
         // lblCustomersTitle
         //
         lblCustomersTitle.AutoSize = true;
-        lblCustomersTitle.Location = new Point(20, 52);
+        lblCustomersTitle.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+        lblCustomersTitle.Location = new Point(20, 90);
         lblCustomersTitle.Name = "lblCustomersTitle";
-        lblCustomersTitle.Size = new Size(110, 20);
-        lblCustomersTitle.TabIndex = 4;
+        lblCustomersTitle.Size = new Size(150, 28);
+        lblCustomersTitle.TabIndex = 1;
         lblCustomersTitle.Text = "Khách đang chờ";
         //
         // lstCustomers
         //
-        lstCustomers.FormattingEnabled = true;
-        lstCustomers.Location = new Point(20, 75);
+        lstCustomers.Location = new Point(20, 120);
         lstCustomers.Name = "lstCustomers";
-        lstCustomers.Size = new Size(420, 224);
-        lstCustomers.HorizontalScrollbar = true;
-        lstCustomers.TabIndex = 5;
+        lstCustomers.Size = new Size(440, 400);
+        lstCustomers.TabIndex = 2;
+        lstCustomers.DrawItem += lstCustomers_DrawItem;
+        lstCustomers.SelectedIndexChanged += lstCustomers_SelectedIndexChanged;
         //
         // lblMenuTitle
         //
         lblMenuTitle.AutoSize = true;
-        lblMenuTitle.Location = new Point(455, 52);
+        lblMenuTitle.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+        lblMenuTitle.Location = new Point(480, 90);
         lblMenuTitle.Name = "lblMenuTitle";
-        lblMenuTitle.Size = new Size(70, 20);
-        lblMenuTitle.TabIndex = 6;
+        lblMenuTitle.Size = new Size(90, 28);
+        lblMenuTitle.TabIndex = 3;
         lblMenuTitle.Text = "Thực đơn";
         //
         // lstMenu
         //
-        lstMenu.FormattingEnabled = true;
-        lstMenu.Location = new Point(455, 75);
+        lstMenu.Location = new Point(480, 120);
         lstMenu.Name = "lstMenu";
-        lstMenu.Size = new Size(330, 224);
-        lstMenu.HorizontalScrollbar = true;
-        lstMenu.TabIndex = 7;
+        lstMenu.Size = new Size(420, 294);
+        lstMenu.TabIndex = 4;
+        lstMenu.DrawItem += lstMenu_DrawItem;
         lstMenu.SelectedIndexChanged += lstMenu_SelectedIndexChanged;
+        //
+        // lblSlogan
+        //
+        lblSlogan.AutoSize = false;
+        lblSlogan.AutoEllipsis = true;
+        lblSlogan.Font = new Font("Segoe UI", 9.5F, FontStyle.Italic);
+        lblSlogan.Location = new Point(480, 415);
+        lblSlogan.Name = "lblSlogan";
+        lblSlogan.Size = new Size(420, 24);
+        lblSlogan.TabIndex = 5;
+        lblSlogan.Text = "Chọn một món để xem câu slogan của nó.";
         //
         // lblReadyTitle
         //
         lblReadyTitle.AutoSize = true;
-        lblReadyTitle.Location = new Point(800, 52);
+        lblReadyTitle.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+        lblReadyTitle.Location = new Point(920, 90);
         lblReadyTitle.Name = "lblReadyTitle";
-        lblReadyTitle.Size = new Size(120, 20);
-        lblReadyTitle.TabIndex = 8;
+        lblReadyTitle.Size = new Size(50, 28);
+        lblReadyTitle.TabIndex = 6;
         lblReadyTitle.Text = "Bếp";
         //
         // lstReady
         //
-        lstReady.FormattingEnabled = true;
-        lstReady.Location = new Point(800, 75);
+        lstReady.Location = new Point(920, 120);
         lstReady.Name = "lstReady";
-        lstReady.Size = new Size(280, 224);
-        lstReady.HorizontalScrollbar = true;
-        lstReady.TabIndex = 9;
+        lstReady.Size = new Size(340, 400);
+        lstReady.TabIndex = 7;
+        lstReady.DrawItem += lstReady_DrawItem;
+        lstReady.SelectedIndexChanged += lstReady_SelectedIndexChanged;
+        //
+        // lblLogTitle
+        //
+        lblLogTitle.AutoSize = true;
+        lblLogTitle.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+        lblLogTitle.Location = new Point(20, 532);
+        lblLogTitle.Name = "lblLogTitle";
+        lblLogTitle.Size = new Size(80, 28);
+        lblLogTitle.TabIndex = 8;
+        lblLogTitle.Text = "Nhật ký";
         //
         // lstLog
         //
-        lstLog.FormattingEnabled = true;
-        lstLog.Location = new Point(20, 315);
+        lstLog.Location = new Point(20, 562);
         lstLog.Name = "lstLog";
-        lstLog.Size = new Size(1060, 144);
-        lstLog.HorizontalScrollbar = true;
-        lstLog.TabIndex = 10;
+        lstLog.Size = new Size(1240, 130);
+        lstLog.TabIndex = 9;
+        lstLog.DrawItem += lstLog_DrawItem;
         //
         // btnOpen
         //
-        btnOpen.Location = new Point(20, 475);
+        btnOpen.Location = new Point(20, 712);
         btnOpen.Name = "btnOpen";
-        btnOpen.Size = new Size(250, 50);
-        btnOpen.TabIndex = 11;
+        btnOpen.Size = new Size(295, 60);
+        btnOpen.TabIndex = 10;
         btnOpen.Text = "Mở cửa";
-        btnOpen.UseVisualStyleBackColor = true;
         btnOpen.Click += btnOpen_Click;
         //
         // btnCook
         //
-        btnCook.Location = new Point(290, 475);
+        btnCook.Location = new Point(335, 712);
         btnCook.Name = "btnCook";
-        btnCook.Size = new Size(250, 50);
-        btnCook.TabIndex = 12;
+        btnCook.Size = new Size(295, 60);
+        btnCook.TabIndex = 11;
         btnCook.Text = "Nấu món";
-        btnCook.UseVisualStyleBackColor = true;
         btnCook.Click += btnCook_Click;
         //
         // btnServe
         //
-        btnServe.Location = new Point(560, 475);
+        btnServe.Location = new Point(650, 712);
         btnServe.Name = "btnServe";
-        btnServe.Size = new Size(250, 50);
-        btnServe.TabIndex = 13;
+        btnServe.Size = new Size(295, 60);
+        btnServe.TabIndex = 12;
         btnServe.Text = "Phục vụ";
-        btnServe.UseVisualStyleBackColor = true;
         btnServe.Click += btnServe_Click;
         //
         // btnBuy
         //
-        btnBuy.Location = new Point(830, 475);
+        btnBuy.Location = new Point(965, 712);
         btnBuy.Name = "btnBuy";
-        btnBuy.Size = new Size(250, 50);
-        btnBuy.TabIndex = 14;
+        btnBuy.Size = new Size(295, 60);
+        btnBuy.TabIndex = 13;
         btnBuy.Text = "Nhập hàng";
-        btnBuy.UseVisualStyleBackColor = true;
         btnBuy.Click += btnBuy_Click;
         //
         // MainForm
         //
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1100, 545);
-        Controls.Add(lblMoney);
-        Controls.Add(lblReputation);
-        Controls.Add(lblDay);
-        Controls.Add(lblClock);
+        ClientSize = new Size(1280, 792);
+        Controls.Add(pnlHud);
         Controls.Add(lblCustomersTitle);
         Controls.Add(lstCustomers);
         Controls.Add(lblMenuTitle);
         Controls.Add(lstMenu);
+        Controls.Add(lblSlogan);
         Controls.Add(lblReadyTitle);
         Controls.Add(lstReady);
+        Controls.Add(lblLogTitle);
         Controls.Add(lstLog);
         Controls.Add(btnOpen);
         Controls.Add(btnCook);
@@ -204,22 +282,31 @@ partial class MainForm
         StartPosition = FormStartPosition.CenterScreen;
         Text = "Quán Ăn Bận Rộn";
         FormClosed += MainForm_FormClosed;
+        pnlHud.ResumeLayout(false);
+        pnlHud.PerformLayout();
         ResumeLayout(false);
         PerformLayout();
     }
 
     #endregion
 
-    private Label lblMoney;
-    private Label lblReputation;
+    private Panel pnlHud;
     private Label lblDay;
     private Label lblClock;
+    private Label lblMoney;
+    private Label lblReputation;
+    private Panel pnlReputationBar;
+    private Label lblSpeed;
+    private ComboBox cboSpeed;
+    private Button btnHelp;
     private Label lblCustomersTitle;
     private ListBox lstCustomers;
     private Label lblMenuTitle;
     private ListBox lstMenu;
+    private Label lblSlogan;
     private Label lblReadyTitle;
     private ListBox lstReady;
+    private Label lblLogTitle;
     private ListBox lstLog;
     private Button btnOpen;
     private Button btnCook;
