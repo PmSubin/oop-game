@@ -2,47 +2,32 @@
 
 namespace OopGame.Core.Cooking;
 
-/// <summary>
-/// Cái bếp của quán: nấu tối đa 2 món cùng lúc, dùng nguyên liệu trong kho.
-/// Mỗi giây quán gọi Update(1) để đếm ngược thời gian nấu.
-/// </summary>
+// cai bep cua quan: nau toi da 2 mon cung luc, dung nguyen lieu trong kho
 public class Kitchen : IUpdatable
 {
-    /// <summary>
-    /// Số món tối đa nấu cùng lúc.
-    /// </summary>
-    public const int MaxSlots = 2;                     // nấu tối đa 2 món cùng lúc
+    // so mon toi da nau cung luc
+    public const int MaxSlots = 2; // nau toi da 2 mon cung luc
 
     private readonly Inventory _inventory;
     private readonly List<CookingOrder> _cookingOrders = new List<CookingOrder>();
     private readonly List<Dish> _readyDishes = new List<Dish>();
 
-    /// <summary>
-    /// Tạo bếp, dùng chung kho nguyên liệu được đưa vào.
-    /// </summary>
+    // tao bep, dung chung kho nguyen lieu duoc dua vao
     public Kitchen(Inventory inventory)
     {
         _inventory = inventory;
     }
 
-    /// <summary>
-    /// Các món đang nấu (chỉ đọc).
-    /// </summary>
+    // cac mon dang nau (chi doc)
     public IReadOnlyList<CookingOrder> CookingOrders => _cookingOrders.AsReadOnly();
 
-    /// <summary>
-    /// Các món đã nấu xong, đang chờ phục vụ (chỉ đọc).
-    /// </summary>
+    // cac mon da nau xong, dang cho phuc vu (chi doc)
     public IReadOnlyList<Dish> ReadyDishes => _readyDishes.AsReadOnly();
 
-    /// <summary>
-    /// Bếp đã kín chảo chưa.
-    /// </summary>
+    // bep da kin chao chua
     public bool IsFull => _cookingOrders.Count >= MaxSlots;
 
-    /// <summary>
-    /// Bắt đầu nấu một món. Bếp đầy hoặc thiếu nguyên liệu thì trả về false.
-    /// </summary>
+    // bat dau nau mot mon
     public bool StartCooking(Dish dish)
     {
         if (IsFull)
@@ -59,12 +44,10 @@ public class Kitchen : IUpdatable
         return true;
     }
 
-    /// <summary>
-    /// Trôi qua một số giây: đếm ngược mọi món đang nấu, món nào xong thì chuyển sang danh sách đã nấu xong.
-    /// </summary>
+    // troi qua mot so giay: dem nguoc moi mon dang nau, mon nao xong thi chuyen sang danh sach da nau xong
     public void Update(int elapsedSeconds)
     {
-        // Gom các món đã xong vào danh sách tạm, vì không được xoá khỏi List khi đang foreach chính nó.
+        // gom cac mon da xong vao danh sach tam, vi khong duoc xoa khoi List khi dang foreach chinh no
         List<CookingOrder> finishedOrders = new List<CookingOrder>();
 
         foreach (CookingOrder order in _cookingOrders)
@@ -83,9 +66,7 @@ public class Kitchen : IUpdatable
         }
     }
 
-    /// <summary>
-    /// Lấy một món đã nấu xong ra phục vụ (so sánh theo tên món). Có thì trả về true, không có thì false.
-    /// </summary>
+    // lay mot mon da nau xong ra phuc vu (so sanh theo ten mon)
     public bool TakeReadyDish(Dish dish)
     {
         for (int i = 0; i < _readyDishes.Count; i++)

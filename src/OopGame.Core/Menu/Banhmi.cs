@@ -2,9 +2,7 @@
 
 namespace OopGame.Core.Menu;
 
-/// <summary>
-/// Món Bánh Mì Không Người Yêu.
-/// </summary>
+// mon banh mi khong nguoi yeu
 public class BanhMi : MainDish
 {
     private static readonly Dictionary<string, int> _recipe = new Dictionary<string, int>

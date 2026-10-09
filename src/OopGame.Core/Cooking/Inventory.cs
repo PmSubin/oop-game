@@ -3,17 +3,12 @@ using OopGame.Core.Menu;
 
 namespace OopGame.Core.Cooking;
 
-/// <summary>
-/// Kho nguyên liệu của quán: lưu số lượng từng nguyên liệu.
-/// Bên ngoài chỉ thao tác qua phương thức, không sửa thẳng số lượng được.
-/// </summary>
+// kho nguyen lieu cua quan: luu so luong tung nguyen lieu
 public class Inventory
 {
     private readonly Dictionary<string, int> _stock = new Dictionary<string, int>();
 
-    /// <summary>
-    /// Số lượng hiện có của một nguyên liệu. Chưa từng thêm thì trả về 0.
-    /// </summary>
+    // so luong hien co cua mot nguyen lieu
     public int GetAmount(string ingredient)
     {
         int amount;
@@ -24,9 +19,7 @@ public class Inventory
         return 0;
     }
 
-    /// <summary>
-    /// Thêm nguyên liệu vào kho (cộng dồn vào số đang có).
-    /// </summary>
+    // them nguyen lieu vao kho (cong don vao so dang co)
     public void Add(string ingredient, int amount)
     {
         if (amount <= 0)
@@ -37,9 +30,7 @@ public class Inventory
         _stock[ingredient] = GetAmount(ingredient) + amount;
     }
 
-    /// <summary>
-    /// Kiểm tra kho có đủ nguyên liệu để nấu một phần món này không.
-    /// </summary>
+    // kiem tra kho co du nguyen lieu de nau mot phan mon nay khong
     public bool HasIngredients(Dish dish)
     {
         foreach (KeyValuePair<string, int> item in dish.GetIngredients())
@@ -52,9 +43,7 @@ public class Inventory
         return true;
     }
 
-    /// <summary>
-    /// Trừ nguyên liệu để nấu món. Thiếu bất kỳ thứ nào thì trả về false và không trừ gì cả.
-    /// </summary>
+    // tru nguyen lieu de nau mon
     public bool TryConsume(Dish dish)
     {
         if (!HasIngredients(dish))
@@ -69,9 +58,7 @@ public class Inventory
         return true;
     }
 
-    /// <summary>
-    /// Toàn bộ kho dưới dạng chỉ đọc (tên nguyên liệu và số lượng).
-    /// </summary>
+    // toan bo kho duoi dang chi doc (ten nguyen lieu va so luong)
     public IReadOnlyDictionary<string, int> GetAll()
     {
         return new ReadOnlyDictionary<string, int>(_stock);

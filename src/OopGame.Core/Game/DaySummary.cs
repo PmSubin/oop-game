@@ -2,54 +2,36 @@ using System.Globalization;
 
 namespace OopGame.Core.Game;
 
-/// <summary>
-/// Bảng tổng kết một ngày làm việc của quán: phục vụ bao nhiêu khách, bao nhiêu khách bỏ về, lời lỗ ra sao.
-/// </summary>
+// bang tong ket mot ngay lam viec cua quan: phuc vu bao nhieu khach, bao nhieu khach bo ve, loi lo ra sao
 public class DaySummary
 {
     private static readonly CultureInfo _vietnameseCulture = CultureInfo.GetCultureInfo("vi-VN");
 
-    /// <summary>
-    /// Tạo bảng tổng kết trống cho ngày thứ <paramref name="day"/>.
-    /// </summary>
+    // tao bang tong ket trong cho ngay thu day
     public DaySummary(int day)
     {
         Day = day;
     }
 
-    /// <summary>
-    /// Ngày thứ mấy.
-    /// </summary>
+    // ngay thu may
     public int Day { get; }
 
-    /// <summary>
-    /// Số khách đã được phục vụ.
-    /// </summary>
+    // so khach da duoc phuc vu
     public int CustomersServed { get; private set; }
 
-    /// <summary>
-    /// Số khách chờ lâu quá nên bỏ về.
-    /// </summary>
+    // so khach cho lau qua nen bo ve
     public int CustomersLeft { get; private set; }
 
-    /// <summary>
-    /// Tổng tiền thu được (giá món cộng tip).
-    /// </summary>
+    // tong tien thu duoc (gia mon cong tip)
     public int Revenue { get; private set; }
 
-    /// <summary>
-    /// Tổng tiền đã chi để nhập hàng.
-    /// </summary>
+    // tong tien da chi de nhap hang
     public int Expenses { get; private set; }
 
-    /// <summary>
-    /// Lợi nhuận trong ngày: doanh thu trừ chi phí.
-    /// </summary>
+    // loi nhuan trong ngay: doanh thu tru chi phi
     public int Profit => Revenue - Expenses;
 
-    /// <summary>
-    /// Ghi nhận một khách đã được phục vụ và số tiền thu từ khách đó.
-    /// </summary>
+    // ghi nhan mot khach da duoc phuc vu va so tien thu tu khach do
     public void RecordServed(int amount)
     {
         if (amount < 0)
@@ -61,17 +43,13 @@ public class DaySummary
         Revenue += amount;
     }
 
-    /// <summary>
-    /// Ghi nhận một khách bỏ về.
-    /// </summary>
+    // ghi nhan mot khach bo ve
     public void RecordLeft()
     {
         CustomersLeft++;
     }
 
-    /// <summary>
-    /// Ghi nhận một khoản chi nhập hàng.
-    /// </summary>
+    // ghi nhan mot khoan chi nhap hang
     public void RecordExpense(int amount)
     {
         if (amount < 0)
@@ -82,9 +60,7 @@ public class DaySummary
         Expenses += amount;
     }
 
-    /// <summary>
-    /// Bảng tổng kết 6 dòng để hiện trong hộp thoại cuối ngày.
-    /// </summary>
+    // bang tong ket 6 dong de hien trong hop thoai cuoi ngay
     public override string ToString()
     {
         return "Tổng kết ngày " + Day + "\n"

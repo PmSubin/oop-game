@@ -1,8 +1,6 @@
 ﻿namespace OopGame.Core.Menu;
 
-/// <summary>
-/// Thực đơn của quán.
-/// </summary>
+// thuc don cua quan
 public class MenuBook
 {
     private readonly List<Dish> _dishes;
@@ -21,30 +19,22 @@ public class MenuBook
         };
     }
 
-    /// <summary>
-    /// Số món trong thực đơn.
-    /// </summary>
+    // so mon trong thuc don
     public int Count => _dishes.Count;
 
-    /// <summary>
-    /// Lấy toàn bộ món.
-    /// </summary>
+    // lay toan bo mon
     public IReadOnlyList<Dish> GetAll()
     {
         return _dishes.AsReadOnly();
     }
 
-    /// <summary>
-    /// Lấy ngẫu nhiên một món.
-    /// </summary>
+    // lay ngau nhien mot mon
     public Dish GetRandom(Random random)
     {
         return _dishes[random.Next(_dishes.Count)];
     }
 
-    /// <summary>
-    /// Tìm món theo tên.
-    /// </summary>
+    // tim mon theo ten
     public Dish? FindByName(string name)
     {
         foreach (Dish dish in _dishes)

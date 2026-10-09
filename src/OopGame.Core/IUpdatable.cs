@@ -1,9 +1,6 @@
 namespace OopGame.Core;
 
-/// <summary>
-/// Những thứ thay đổi theo thời gian khi quán đang mở (khách, bếp).
-/// Quán gọi Update(1) mỗi giây.
-/// </summary>
+// nhung thu thay doi theo thoi gian khi quan dang mo (khach, bep)
 public interface IUpdatable
 {
     void Update(int elapsedSeconds);

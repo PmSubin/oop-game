@@ -2,9 +2,7 @@
 
 namespace OopGame.Core.Menu;
 
-/// <summary>
-/// Món Phở Gõ Deadline.
-/// </summary>
+// mon pho go deadline
 public class Pho : MainDish
 {
     private static readonly Dictionary<string, int> _recipe = new Dictionary<string, int>
@@ -14,22 +12,16 @@ public class Pho : MainDish
         { Ingredients.Vegetables, 1 }
     };
 
-    /// <summary>
-    /// Khởi tạo món phở.
-    /// </summary>
+    // khoi tao mon pho
     public Pho()
         : base("Phở Gõ Deadline", 45000, 6)
     {
     }
 
-    /// <summary>
-    /// Khẩu hiệu của món.
-    /// </summary>
+    // khau hieu cua mon
     public override string Slogan => "Ăn xong chạy deadline xuyên đêm.";
 
-    /// <summary>
-    /// Công thức nguyên liệu.
-    /// </summary>
+    // cong thuc nguyen lieu
     public override IReadOnlyDictionary<string, int> GetIngredients()
     {
         return new ReadOnlyDictionary<string, int>(_recipe);
